@@ -48,47 +48,28 @@ export async function uploadFileToBucket(mediaFile: File, memeTitle: string): Pr
 
         // Generate a hash of the file content
         const fileHash = await generateFileHash(mediaFile);
-        logger.log(`Generated file hash: ${JSON.stringify(fileHash)}`);
+        logger.log(`Generated file hash: ${fileHash}`);
 
-        // Retrieve files in the "memes" folder
-        const { data: existingFiles, error: listError } = await supabase
-            .storage
-            .from(BUCKET_NAME.MEMES)
-            .list("memes");
-
-        if (listError) {
-            logger.error(`Error fetching files from bucket: ${JSON.stringify(listError)}`);
-            return null;
-        }
-
-        // Check if a file with the same hash exists
-        const existingFile = existingFiles?.find((file: { name: string; }) =>
-            file.name.endsWith(`${fileHash}.${mediaFile.name.split('.').pop()?.toLowerCase()}`)
-        );
-
-        if (existingFile) {
-            // Return the public URL of the existing file
-            const { data: publicUrlData } = supabase
-                .storage
-                .from(BUCKET_NAME.MEMES)
-                .getPublicUrl(existingFile.name);
-
-            logger.log("Found an existing file with the same content.");
-            return publicUrlData?.publicUrl || null;
-        }
-
-        // Prepare new file path if not an existing file
+        // Construct file path
         const extension = mediaFile.name.split('.').pop()?.toLowerCase() || "";
         const sanitizedFileName = `${memeTitle.replace(/\s+/g, "_")}-${fileHash}.${extension}`;
         const filePath = `memes/${sanitizedFileName}`;
 
-        // Upload the new file
+        // **Check if file already exists** before uploading
+        const { data: existingFileUrl } = supabase.storage.from(BUCKET_NAME.MEMES).getPublicUrl(filePath);
+
+        if (existingFileUrl?.publicUrl) {
+            logger.log("File already exists. Returning existing public URL.");
+            return existingFileUrl.publicUrl;
+        }
+
+        // Upload new file
         logger.log("File not found in the bucket. Proceeding with upload...");
         const { data: uploadData, error: uploadError } = await supabase.storage
             .from(BUCKET_NAME.MEMES)
             .upload(filePath, mediaFile, {
                 cacheControl: "3600",
-                upsert: false,
+                upsert: false,  // Don't overwrite existing files
                 contentType: mediaFile.type,
             });
 
@@ -99,13 +80,9 @@ export async function uploadFileToBucket(mediaFile: File, memeTitle: string): Pr
 
         logger.log("File uploaded successfully.");
 
-        // Get the public URL of the uploaded file
-        const { data: publicUrlData } = supabase
-            .storage
-            .from(BUCKET_NAME.MEMES)
-            .getPublicUrl(filePath);
-
-        logger.log(`Public URL data: ${JSON.stringify(publicUrlData)}`);
+        // Return public URL of uploaded file
+        const { data: publicUrlData } = supabase.storage.from(BUCKET_NAME.MEMES).getPublicUrl(filePath);
+        logger.log(`Public URL: ${publicUrlData?.publicUrl}`);
         return publicUrlData?.publicUrl || null;
 
     } catch (error) {
@@ -113,14 +90,14 @@ export async function uploadFileToBucket(mediaFile: File, memeTitle: string): Pr
         return null;
     }
 }
-// Helper function to generate the SHA-256 hash of a file
+
+// 🔹 **Helper function to generate SHA-256 hash of a file**
 async function generateFileHash(file: File): Promise<string> {
     const arrayBuffer = await file.arrayBuffer();
-    const hashBuffer = await crypto.subtle.digest("SHA-256", arrayBuffer); // Generate hash using SHA-256
-    const hashArray = Array.from(new Uint8Array(hashBuffer)); // Convert buffer to byte array
-    const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, "0")).join(""); // Convert byte array to hex string
-    return hashHex;
+    const hashBuffer = await crypto.subtle.digest("SHA-256", arrayBuffer);
+    return Array.from(new Uint8Array(hashBuffer)).map(byte => byte.toString(16).padStart(2, "0")).join("");
 }
+
 /**
  * Inserts a new meme into the database.
  * 
