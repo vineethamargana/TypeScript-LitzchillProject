@@ -1,6 +1,6 @@
 import { assertEquals } from "https://deno.land/std@0.224.0/assert/assert_equals.ts";
 import  createMeme  from "../../_handler/_meme_module/CreateMeme.ts";
-
+import 'https://deno.land/x/dotenv@v3.2.2/load.ts'
 
 Deno.test("createMeme: Valid Request", async () => {
   // Step 1: Generate a unique boundary

@@ -1,4 +1,4 @@
-import { getMemeByIdQuery } from "@repository/_meme_repo/MemeRepository.ts";
+import * as MemeRepository from "@repository/_meme_repo/MemeRepository.ts";
 import { HTTP_STATUS_CODE } from "@shared/_constants/HttpStatusCodes.ts";
 import { COMMON_ERROR_MESSAGES } from "@shared/_messages/ErrorMessages.ts";
 import { V4 } from "@V4";
@@ -23,7 +23,8 @@ import Logger from "@shared/Logger/logger.ts";
  * 
  * @throws {Error} Throws an error if there is an unexpected failure while fetching the meme.
  */
-export default async function getmemebyID(_req: Request, params: Record<string, string>): Promise<Response> {
+export default async function getmemebyID(_req: Request, params: Record<string, string>,getMemeByIdQuery = MemeRepository.getMemeByIdQuery
+): Promise<Response> {
     const logger = Logger.getInstance();  // Get the logger instance
     try {  
         logger.info("Processing getMemebyID handler");
