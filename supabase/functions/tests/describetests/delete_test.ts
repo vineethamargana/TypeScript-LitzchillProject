@@ -1,6 +1,6 @@
 import { describe, it } from "https://deno.land/std@0.224.0/testing/bdd.ts";
 import { expect } from "https://deno.land/x/testing_library_jest_deno@v0.1.1/mod.ts";
-import DeletememebyID from "../../functions/_handler/_meme_module/DeleteMeme.ts";
+import DeletememebyID from "../../_handler/_meme_module/DeleteMeme.ts";
 import { PostgrestError } from "@supabase/supabase-js"; 
 import { USER_ROLES } from "@shared/_constants/UserRoles.ts";
 import { MEME_STATUS } from "@shared/_constants/Types.ts";

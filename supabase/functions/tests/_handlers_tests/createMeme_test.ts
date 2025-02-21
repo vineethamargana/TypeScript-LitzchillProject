@@ -1,5 +1,5 @@
 import { assertEquals } from "https://deno.land/std@0.224.0/assert/assert_equals.ts";
-import  createMeme  from "../../functions/_handler/_meme_module/CreateMeme.ts";
+import  createMeme  from "../../_handler/_meme_module/CreateMeme.ts";
 
 
 Deno.test("createMeme: Valid Request", async () => {

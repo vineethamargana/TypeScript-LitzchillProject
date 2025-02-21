@@ -1,6 +1,6 @@
 // deno-lint-ignore-file require-await
 import { assertEquals } from "https://deno.land/std@0.224.0/assert/assert_equals.ts";
-import DeletememebyID from "../../functions/_handler/_meme_module/DeleteMeme.ts";
+import DeletememebyID from "../../_handler/_meme_module/DeleteMeme.ts";
 import { PostgrestError } from "@supabase/supabase-js"; 
 import { USER_ROLES } from "@shared/_constants/UserRoles.ts";
 import { MEME_STATUS } from "@shared/_constants/Types.ts";
