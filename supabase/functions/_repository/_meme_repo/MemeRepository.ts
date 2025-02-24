@@ -136,21 +136,46 @@ export async function createMemeQuery(meme: Partial<Meme>): Promise<{ data: obje
  * @param {string} meme_id - The unique identifier of the meme to be updated.
  * @returns {Promise<{ data: object | null, error: object | null }>} - A promise that resolves with the updated meme data or an error.
  */
-export async function updatememeQuery(meme: Partial<Meme>,user_type: string): Promise<{ data: object | null, error: object | null }> 
-{
+// export async function updatememeQuery(meme: Partial<Meme>,user_type: string,supabaseClient = supabase): Promise<{ data: object | null, error: object | null }> 
+// {
+//     const isAdmin = user_type === USER_ROLES.ADMIN_ROLE;
+//     const conditions = isAdmin ? { [MEMEFIELDS.MEME_ID]: meme.meme_id } : { [MEMEFIELDS.MEME_ID]: meme.meme_id, [MEMEFIELDS.USER_ID]: meme.user_id };
+//     console.log("Update conditions:", conditions);
+//     const { data, error } = await supabase
+//         .from(TABLE_NAMES.MEME_TABLE)
+//         .update(meme)
+//         .neq(MEMEFIELDS.MEME_STATUS, MEME_STATUS.DELETED) // Ensure meme isn't already deleted
+//         .match(conditions)
+//         .select("meme_id, meme_title, tags, updated_at")
+//         .single();
+//     if(error) logger.error(`Failed to update meme: ${JSON.stringify(error)}`);
+//     return { data, error};
+// }
+export async function updatememeQuery(
+    meme: Partial<Meme>,
+    user_type: string,
+    supabaseClient = supabase // Default Supabase client
+  ): Promise<{ data: object | null; error: object | null }> {
     const isAdmin = user_type === USER_ROLES.ADMIN_ROLE;
-    const conditions = isAdmin ? { [MEMEFIELDS.MEME_ID]: meme.meme_id } : { [MEMEFIELDS.MEME_ID]: meme.meme_id, [MEMEFIELDS.USER_ID]: meme.user_id };
+    const conditions = isAdmin
+      ? { [MEMEFIELDS.MEME_ID]: meme.meme_id }
+      : { [MEMEFIELDS.MEME_ID]: meme.meme_id, [MEMEFIELDS.USER_ID]: meme.user_id };
+  
     console.log("Update conditions:", conditions);
-    const { data, error } = await supabase
-        .from(TABLE_NAMES.MEME_TABLE)
-        .update(meme)
-        .neq(MEMEFIELDS.MEME_STATUS, MEME_STATUS.DELETED) // Ensure meme isn't already deleted
-        .match(conditions)
-        .select("meme_id, meme_title, tags, updated_at")
-        .single();
-    if(error) logger.error(`Failed to update meme: ${JSON.stringify(error)}`);
-    return { data, error};
-}
+  
+    const { data, error } = await supabaseClient // ✅ Use supabaseClient instead
+      .from(TABLE_NAMES.MEME_TABLE)
+      .update(meme)
+      .neq(MEMEFIELDS.MEME_STATUS, MEME_STATUS.DELETED)
+      .match(conditions)
+      .select("meme_id, meme_title, tags, updated_at")
+      .single();
+  
+    if (error) logger.error(`Failed to update meme: ${JSON.stringify(error)}`);
+  
+    return { data, error };
+  }
+  
 
 // export async function updatememeQuery(
 //     meme: Partial<Meme>,
