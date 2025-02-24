@@ -7,6 +7,9 @@ import { USER_ROLES } from "@shared/_constants/UserRoles.ts";
 import { MEME_STATUS } from '@shared/_constants/Types.ts';
 import Logger from "@shared/Logger/logger.ts";
 
+import { SupabaseClient } from "@supabase/supabase-js";
+
+
 const logger = Logger.getInstance();
 /**
  * Checks if a meme exists in the database with the given criteria.
@@ -137,6 +140,7 @@ export async function updatememeQuery(meme: Partial<Meme>,user_type: string): Pr
 {
     const isAdmin = user_type === USER_ROLES.ADMIN_ROLE;
     const conditions = isAdmin ? { [MEMEFIELDS.MEME_ID]: meme.meme_id } : { [MEMEFIELDS.MEME_ID]: meme.meme_id, [MEMEFIELDS.USER_ID]: meme.user_id };
+    console.log("Update conditions:", conditions);
     const { data, error } = await supabase
         .from(TABLE_NAMES.MEME_TABLE)
         .update(meme)
@@ -144,9 +148,40 @@ export async function updatememeQuery(meme: Partial<Meme>,user_type: string): Pr
         .match(conditions)
         .select("meme_id, meme_title, tags, updated_at")
         .single();
-    if(error) logger.error(`Failed to update meme: ${JSON.stringify(error.message)}`);
+    if(error) logger.error(`Failed to update meme: ${JSON.stringify(error)}`);
     return { data, error};
 }
+
+// export async function updatememeQuery(
+//     meme: Partial<Meme>,
+//     user_type: string,
+//     supabaseClient = supabase // Default to real Supabase, but allows mocking
+//   ): Promise<{ data: object | null; error: object | null }> {
+//     const isAdmin = user_type === USER_ROLES.ADMIN_ROLE;
+//     const conditions = isAdmin
+//       ? { [MEMEFIELDS.MEME_ID]: meme.meme_id }
+//       : { [MEMEFIELDS.MEME_ID]: meme.meme_id, [MEMEFIELDS.USER_ID]: meme.user_id };
+  
+//     console.log("[QUERY] Updating Meme with Conditions:", conditions);
+//     console.log("[QUERY] Update Data:", meme);
+  
+//     const { data, error } = await supabaseClient
+//       .from(TABLE_NAMES.MEME_TABLE)
+//       .update(meme)
+//       .neq(MEMEFIELDS.MEME_STATUS, MEME_STATUS.DELETED) // Ensure meme isn't already deleted
+//       .match(conditions)
+//       .select("meme_id, meme_title, tags, updated_at")
+//       .single();
+  
+//     if (error) {
+//       console.error("[ERROR] Failed to update meme:", error);
+//       logger.error(`Failed to update meme: ${JSON.stringify(error)}`);
+//     }
+  
+//     console.log("[QUERY] Update Result:", { data, error });
+//     return { data, error };
+//   }
+  
 
 /**
  * Soft delete a meme by updating its status to "deleted".

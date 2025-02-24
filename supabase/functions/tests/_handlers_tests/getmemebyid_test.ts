@@ -1,11 +1,10 @@
 import { assertEquals } from "https://deno.land/std@0.224.0/assert/assert_equals.ts";
-import { USER_ROLES } from "@shared/_constants/UserRoles.ts";
 import { HTTP_STATUS_CODE } from "@shared/_constants/HttpStatusCodes.ts";
-import { MEME_SUCCESS_MESSAGES, MEME_ERROR_MESSAGES } from "@shared/_messages/Meme_Module_Messages.ts";
-
-import getmemebyID from "../../_handler/_meme_module/GetMemeByID.ts";
+import { MEME_SUCCESS_MESSAGES } from "@shared/_messages/Meme_Module_Messages.ts";
+import getmemebyID from "@handler/_meme_module/getMemeByID.ts";
 
 // Mocked database
+// deno-lint-ignore no-explicit-any
 const mockMemeDB: Record<string, any> = {
   "550e8400-e29b-41d4-a716-446655440000": {
     meme_title: "Funny Meme",
@@ -24,6 +23,7 @@ const mockFollowerDB: Record<string, { follower_id: string }[]> = {
 };
 
 // Mock function
+// deno-lint-ignore require-await
 const mockGetMemeByIdQuery = async (meme_id: string, user_id: string) => {
   if (!meme_id) {
     return { data: null, error: "Invalid meme ID" };

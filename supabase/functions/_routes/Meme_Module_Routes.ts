@@ -4,7 +4,7 @@ import { MEME_ROUTES } from "./RoutesPaths.ts";
 import { USER_ROLES } from '@shared/_constants/UserRoles.ts';
 import { checkUserAuthentication } from "@middleware/middlerWare.ts";
 import updateMeme from "@handler/_meme_module/UpateMeme.ts";
-import getmemebyID from "@handler/_meme_module/GetMemeByID.ts";
+import getmemebyID from "../_handler/_meme_module/getMemeByID.ts";
 import DeletememebyID from "@handler/_meme_module/DeleteMeme.ts";
 import getAllMemes from "@handler/_meme_module/GetAllMemes.ts";
 import updateMemeStatus from "@handler/_meme_module/UpdateMemeStatus.ts";

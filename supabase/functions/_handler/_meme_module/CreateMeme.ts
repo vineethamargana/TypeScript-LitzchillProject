@@ -1,4 +1,3 @@
-
 import { HTTP_STATUS_CODE } from "@shared/_constants/HttpStatusCodes.ts";
 import { COMMON_ERROR_MESSAGES } from "@shared/_messages/ErrorMessages.ts";
 import { ErrorResponse, SuccessResponse } from "@response/Response.ts";
@@ -10,7 +9,7 @@ import { MEMEFIELDS } from '@shared/_db_table_details/MemeTableFields.ts';
 import Logger from "@shared/Logger/logger.ts";
 
 
-/**
+/** 
  * Handler function to create a new meme.
  * 
  * This function handles the creation of a meme by:
