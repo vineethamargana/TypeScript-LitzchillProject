@@ -7,9 +7,6 @@ import { USER_ROLES } from "@shared/_constants/UserRoles.ts";
 import { MEME_STATUS } from '@shared/_constants/Types.ts';
 import Logger from "@shared/Logger/logger.ts";
 
-import { SupabaseClient } from "@supabase/supabase-js";
-
-
 const logger = Logger.getInstance();
 /**
  * Checks if a meme exists in the database with the given criteria.
@@ -218,21 +215,24 @@ export async function updatememeQuery(
  * 
  * @returns {Promise<{ data: object | null, error: object | null }>} - The result of the query.
  */
-export async function deleteMemeQuery(meme_id: string, user_id: string, user_type: string) {
+export async function deleteMemeQuery( meme_id: string, user_id: string, user_type: string,supabaseClient = supabase) {
     const isAdmin = user_type === USER_ROLES.ADMIN_ROLE;
-    const conditions = isAdmin ? { [MEMEFIELDS.MEME_ID]: meme_id }: { [MEMEFIELDS.MEME_ID]: meme_id, [MEMEFIELDS.USER_ID]: user_id };
-
-    const { data, error } = await supabase
-        .from(TABLE_NAMES.MEME_TABLE)
-        .update({ meme_status: MEME_STATUS.DELETED })
-        .neq(MEMEFIELDS.MEME_STATUS, MEME_STATUS.DELETED)
-        .match(conditions)
-        .select("meme_id, meme_status")
-        .single();
-
+    const conditions = isAdmin
+      ? { [MEMEFIELDS.MEME_ID]: meme_id }
+      : { [MEMEFIELDS.MEME_ID]: meme_id, [MEMEFIELDS.USER_ID]: user_id };
+  
+    const { data, error } = await supabaseClient
+      .from(TABLE_NAMES.MEME_TABLE)
+      .update({ meme_status: MEME_STATUS.DELETED })
+      .neq(MEMEFIELDS.MEME_STATUS, MEME_STATUS.DELETED)
+      .match(conditions)
+      .select("meme_id, meme_status")
+      .single();
+  
     if (error) logger.error(`Failed to delete meme: ${error.message}`);
-    return { data, error};
-}
+    return { data, error };
+  }
+  
 /**
   * Fetches memes that are not deleted and optionally filters them by tags.
   * The memes are ordered by creation date or popularity (based on the `sort` parameter).
@@ -351,9 +351,10 @@ export async function updateMemeStatusQuery(
     meme_id: string, 
     meme_status: string,
     user_id: string,
+    supabaseClient = supabase
  ): Promise<{ data: object | null, error: object | null }>
  {
-    const { data, error } = await supabase
+    const { data, error } = await supabaseClient
         .from(TABLE_NAMES.MEME_TABLE)
         .update({ meme_status: meme_status})
         .eq(MEMEFIELDS.MEME_ID, meme_id)

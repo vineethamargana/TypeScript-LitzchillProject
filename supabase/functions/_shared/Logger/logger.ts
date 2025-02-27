@@ -10,7 +10,7 @@ export default class Logger {
         return Logger.instance;
     }
 
-    // 🔍 Helper function to get caller location (file path & line number)
+    //Helper function to get caller location (file path & line number)
     private static getCallerLocation(): string {
         const stack = new Error().stack;
         if (stack) {
