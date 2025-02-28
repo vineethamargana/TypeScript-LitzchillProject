@@ -62,19 +62,12 @@ Deno.test("Admin can delete any meme", async () => {
 
   let receivedConditions: object | null = null;
 
+  // Mock Supabase constant
   const mockSupabase = createMockSupabase((conditions: object): any => {
     receivedConditions = conditions;
     return { data: { meme_id: TEST_MEME_ID, meme_status: MEME_STATUS.DELETED }, error: null };
   });
 
-
-  // function getMockMemeData(conditions: object) {
-  //   receivedConditions = conditions;
-  //   return { 
-  //     data: { meme_id: TEST_MEME_ID, meme_status: MEME_STATUS.DELETED },
-  //     error: null };
-  // }
-  // const mockSupabase = createMockSupabase(getMockMemeData); 
 
   console.log("Executing deleteMemeQuery...");
   const result = await deleteMemeQuery(TEST_MEME_ID, TEST_USER_ID, USER_ROLES.ADMIN_ROLE, mockSupabase as any);

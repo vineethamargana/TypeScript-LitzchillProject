@@ -1,0 +1,86 @@
+{
+  "scriptId": "315",
+  "url": "file:///C:/Users/Vineetha/Documents/LitchillProject/LitzChill-Backend/supabase/functions/tests/_repo_tests/deletememe_test.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 6341, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "createMockSupabase",
+      "ranges": [{ "startOffset": 910, "endOffset": 2086, "count": 4 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "from",
+      "ranges": [{ "startOffset": 939, "endOffset": 2081, "count": 4 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "update",
+      "ranges": [{ "startOffset": 1040, "endOffset": 2066, "count": 4 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "neq",
+      "ranges": [{ "startOffset": 1168, "endOffset": 2043, "count": 4 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "match",
+      "ranges": [{ "startOffset": 1304, "endOffset": 2012, "count": 4 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "select",
+      "ranges": [{ "startOffset": 1460, "endOffset": 1973, "count": 4 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "single",
+      "ranges": [{ "startOffset": 1607, "endOffset": 1926, "count": 4 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 2127, "endOffset": 3204, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 2297, "endOffset": 2486, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 3256, "endOffset": 4345, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 3408, "endOffset": 3597, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 4430, "endOffset": 5310, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 4565, "endOffset": 4770, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 5380, "endOffset": 6338, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 5517, "endOffset": 5754, "count": 1 }],
+      "isBlockCoverage": true
+    }
+  ]
+}
