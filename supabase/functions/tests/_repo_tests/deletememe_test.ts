@@ -90,7 +90,7 @@ Deno.test("Non-admin can delete their own meme", async () => {
 
   let receivedConditions: object | null = null;
 
-  const mockSupabase = createMockSupabase((conditions) => {
+  const mockSupabase = createMockSupabase((conditions: object) : any => {
     receivedConditions = conditions;
     return { data: { meme_id: TEST_MEME_ID, meme_status: MEME_STATUS.DELETED }, error: null };
   });

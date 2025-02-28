@@ -105,11 +105,11 @@ async function generateFileHash(file: File): Promise<string> {
  * @param {string} user_id - The unique identifier of the user creating the meme.
  * @returns {Promise<{ data: object | null, error: object | null }>} - The inserted meme data if successful; otherwise, an error.
  */
-export async function createMemeQuery(meme: Partial<Meme>): Promise<{ data: object | null, error: object | null }> {
+export async function createMemeQuery(meme: Partial<Meme>,supabaseClient = supabase): Promise<{ data: object | null, error: object | null }> {
     
     logger.log("Attempting to insert meme:"+ meme);
 
-    const { data, error } = await supabase
+    const { data, error } = await supabaseClient
         .from(TABLE_NAMES.MEME_TABLE)
         .insert([{
             user_id: meme.user_id,
@@ -119,7 +119,7 @@ export async function createMemeQuery(meme: Partial<Meme>): Promise<{ data: obje
         }])
         .select("*")
         .single();
-
+        console.log("[QUERY] Insert Result:", { data, error });
     return { data, error };
 }
 
@@ -289,29 +289,36 @@ export async function fetchMemes(page: number,limit: number,sort: string,tags: s
  * @param {string} meme_id - The unique identifier of the meme.
  * @returns {{ data: object | null, error: object | null }} - The meme data for given ID or an error object.
  */
-export async function getMemeByIdQuery(meme_id: string, user_id: string) {
+export async function getMemeByIdQuery(meme_id: string, user_id: string,supabaseClient = supabase) {
     // Step 1: Fetch meme details (ensure it returns at most 1 row)
-    const { data: memeData, error: memeError } = await supabase
+    console.log("Attempting to fetch meme by ID: " + meme_id);
+    const { data: memeData, error: memeError } = await supabaseClient
         .from(TABLE_NAMES.MEME_TABLE)
         .select("meme_title, image_url, tags, like_count, created_at, user_id")
         .neq(MEMEFIELDS.MEME_STATUS, MEME_STATUS.DELETED)
         .eq(MEMEFIELDS.MEME_ID, meme_id)
         .single();  
+        console.log("Fetched meme data: " + JSON.stringify(memeData));
 
     if (memeError || !memeData) {
         logger.error("Error fetching meme by ID: " + (memeError?.message || "Unknown error"));
         return { data: null, error:"Meme not found" };
     }
 
+    console.log("Fetched meme data1: " + JSON.stringify(memeData));
+
     const memeOwnerId = memeData.user_id;
+    console.log("Fetched meme data2: " + JSON.stringify(memeData));
 
     // Step 2: Check if the user's account is private
-    const { data: userData, error: userError } = await supabase
+    const { data: userData, error: userError } = await supabaseClient
         .from(TABLE_NAMES.USER_TABLE)
         .select("preferences")
         .eq("user_id", memeOwnerId)
         .limit(1)  
         .single(); 
+
+        console.log("Fetched user data: " + JSON.stringify(userData));
 
     if (userError || !userData) {
         logger.error("Error fetching user preferences for user ID " + memeOwnerId + ": " + (userError?.message || "Unknown error"));
@@ -322,7 +329,7 @@ export async function getMemeByIdQuery(meme_id: string, user_id: string) {
 
     // Step 3: If account is private, check if the requester is a follower
     if (isPrivate) {
-        const { data: followerData, error: followerError } = await supabase
+        const { data: followerData, error: followerError } = await supabaseClient
             .from(TABLE_NAMES.FOLLOWERS_TABLE)
             .select("follower_id")
             .eq("follower_id", user_id)
