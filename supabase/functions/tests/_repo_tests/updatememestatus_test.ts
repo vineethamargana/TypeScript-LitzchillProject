@@ -54,8 +54,8 @@ Deno.test("updateMemeStatusQuery should update meme status successfully", async 
     data: { meme_id: "0488fbc7-e8b9-4341-9e5b-9f0eb90a6d84", meme_status: MEME_STATUS.APPROVED, meme_title: "Funny Meme" },
     error: null,
   }));
-
-  const result = await updateMemeStatusQuery("0488fbc7-e8b9-4341-9e5b-9f0eb90a6d84", MEME_STATUS.APPROVED, "9a9afb14-acbc-481a-a315-4b946dbf0491", mockSupabase as any);
+ console.log("mock supabase:",mockSupabase); 
+ const result = await updateMemeStatusQuery("0488fbc7-e8b9-4341-9e5b-9f0eb90a6d84", MEME_STATUS.APPROVED, "9a9afb14-acbc-481a-a315-4b946dbf0491", mockSupabase as any);
 
   const expectedResult = {
     data: { meme_id: "0488fbc7-e8b9-4341-9e5b-9f0eb90a6d84", meme_status: MEME_STATUS.APPROVED, meme_title: "Funny Meme" },
@@ -68,7 +68,7 @@ Deno.test("updateMemeStatusQuery should update meme status successfully", async 
   assertEquals(result, expectedResult);
 });
 
-// Test 2: Failing when the meme is already deleted
+//Test 2: Failing when the meme is already deleted
 Deno.test("updateMemeStatusQuery should fail if meme is deleted", async () => {
   console.log("\n  Running Test: Failing when the meme is already deleted ");
 

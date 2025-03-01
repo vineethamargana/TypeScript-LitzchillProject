@@ -7,7 +7,6 @@ const TEST_MEME_TITLE = "Funny Meme";
 const TEST_IMAGE_URL = "https://example.com/meme.jpg";
 const TEST_TAGS = ["funny", "humor"];
 function createMockSupabase(mockResponse:(meme:object) => any){
-
     return {
         from: function(tableName:string){
             console.log(`[Mock] from(${tableName}) called`);
