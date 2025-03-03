@@ -36,7 +36,7 @@ export async function meme_exists(meme_id: string) {
  * @param {string} memeTitle - The title of the meme associated with the file.
  * @returns {Promise<string | null>} - The public URL of the uploaded file, if successful; otherwise, null.
  */
-export async function uploadFileToBucket(mediaFile: File, memeTitle: string): Promise<string | null> {
+export async function uploadFileToBucket(mediaFile: File, memeTitle: string,supabaseClient=supabase): Promise<string | null> {
     logger.log("Uploading media file");
 
     try {
@@ -56,7 +56,7 @@ export async function uploadFileToBucket(mediaFile: File, memeTitle: string): Pr
         const filePath = `memes/${sanitizedFileName}`;
 
         // **Check if file already exists** before uploading
-        const { data: existingFileUrl } = supabase.storage.from(BUCKET_NAME.MEMES).getPublicUrl(filePath);
+        const { data: existingFileUrl } = supabaseClient.storage.from(BUCKET_NAME.MEMES).getPublicUrl(filePath);
 
         if (existingFileUrl?.publicUrl) {
             logger.log("File already exists. Returning existing public URL.");
@@ -65,7 +65,7 @@ export async function uploadFileToBucket(mediaFile: File, memeTitle: string): Pr
 
         // Upload new file
         logger.log("File not found in the bucket. Proceeding with upload...");
-        const { data: uploadData, error: uploadError } = await supabase.storage
+        const { data: uploadData, error: uploadError } = await supabaseClient.storage
             .from(BUCKET_NAME.MEMES)
             .upload(filePath, mediaFile, {
                 cacheControl: "3600",
@@ -81,7 +81,7 @@ export async function uploadFileToBucket(mediaFile: File, memeTitle: string): Pr
         logger.log("File uploaded successfully.");
 
         // Return public URL of uploaded file
-        const { data: publicUrlData } = supabase.storage.from(BUCKET_NAME.MEMES).getPublicUrl(filePath);
+        const { data: publicUrlData } = supabaseClient.storage.from(BUCKET_NAME.MEMES).getPublicUrl(filePath);
         logger.log(`Public URL: ${publicUrlData?.publicUrl}`);
         return publicUrlData?.publicUrl || null;
 
@@ -91,7 +91,7 @@ export async function uploadFileToBucket(mediaFile: File, memeTitle: string): Pr
     }
 }
 
-// 🔹 **Helper function to generate SHA-256 hash of a file**
+// Helper function to generate SHA-256 hash of a file
 async function generateFileHash(file: File): Promise<string> {
     const arrayBuffer = await file.arrayBuffer();
     const hashBuffer = await crypto.subtle.digest("SHA-256", arrayBuffer);
@@ -133,26 +133,7 @@ export async function createMemeQuery(meme: Partial<Meme>,supabaseClient = supab
  * @param {string} meme_id - The unique identifier of the meme to be updated.
  * @returns {Promise<{ data: object | null, error: object | null }>} - A promise that resolves with the updated meme data or an error.
  */
-// export async function updatememeQuery(meme: Partial<Meme>,user_type: string,supabaseClient = supabase): Promise<{ data: object | null, error: object | null }> 
-// {
-//     const isAdmin = user_type === USER_ROLES.ADMIN_ROLE;
-//     const conditions = isAdmin ? { [MEMEFIELDS.MEME_ID]: meme.meme_id } : { [MEMEFIELDS.MEME_ID]: meme.meme_id, [MEMEFIELDS.USER_ID]: meme.user_id };
-//     console.log("Update conditions:", conditions);
-//     const { data, error } = await supabase
-//         .from(TABLE_NAMES.MEME_TABLE)
-//         .update(meme)
-//         .neq(MEMEFIELDS.MEME_STATUS, MEME_STATUS.DELETED) // Ensure meme isn't already deleted
-//         .match(conditions)
-//         .select("meme_id, meme_title, tags, updated_at")
-//         .single();
-//     if(error) logger.error(`Failed to update meme: ${JSON.stringify(error)}`);
-//     return { data, error};
-// }
-export async function updatememeQuery(
-    meme: Partial<Meme>,
-    user_type: string,
-    supabaseClient = supabase // Default Supabase client
-  ): Promise<{ data: object | null; error: object | null }> {
+export async function updatememeQuery(meme: Partial<Meme>,user_type: string,supabaseClient = supabase ): Promise<{ data: object | null; error: object | null }> {
     const isAdmin = user_type === USER_ROLES.ADMIN_ROLE;
     const conditions = isAdmin
       ? { [MEMEFIELDS.MEME_ID]: meme.meme_id }
@@ -160,7 +141,7 @@ export async function updatememeQuery(
   
     console.log("Update conditions:", conditions);
   
-    const { data, error } = await supabaseClient // ✅ Use supabaseClient instead
+    const { data, error } = await supabaseClient 
       .from(TABLE_NAMES.MEME_TABLE)
       .update(meme)
       .neq(MEMEFIELDS.MEME_STATUS, MEME_STATUS.DELETED)
@@ -262,15 +243,15 @@ export async function fetchMemes(page: number,limit: number,sort: string,tags: s
     let query = supabase
         .from("memes")
         .select("meme_id, user_id, meme_title, image_url, like_count, tags, created_at")
-        .eq(MEMEFIELDS.MEME_STATUS, MEME_STATUS.APPROVED) // Only approved memes
-        .in("user_id", publicUserIds) // Only public users' memes
-        .order(sort === "popular" ? "like_count" : "created_at", { ascending: false }) // Sort by likes or recent
-        .range((page - 1) * limit, page * limit - 1); // Pagination range
+        .eq(MEMEFIELDS.MEME_STATUS, MEME_STATUS.APPROVED) 
+        .in("user_id", publicUserIds) 
+        .order(sort === "popular" ? "like_count" : "created_at", { ascending: false }) 
+        .range((page - 1) * limit, page * limit - 1); 
 
     // Filter by tags if provided
     if (tags) {
-        const tagArray = tags.split(",").map(tag => tag.trim()); // Split and trim tags
-        query = query.contains("tags", JSON.stringify(tagArray)); // Use JSON.stringify for JSON columns
+        const tagArray = tags.split(",").map(tag => tag.trim()); 
+        query = query.contains("tags", JSON.stringify(tagArray)); 
     }
 
     const { data, error } = await query;
@@ -305,10 +286,7 @@ export async function getMemeByIdQuery(meme_id: string, user_id: string,supabase
         return { data: null, error:"Meme not found" };
     }
 
-    console.log("Fetched meme data1: " + JSON.stringify(memeData));
-
     const memeOwnerId = memeData.user_id;
-    console.log("Fetched meme data2: " + JSON.stringify(memeData));
 
     // Step 2: Check if the user's account is private
     const { data: userData, error: userError } = await supabaseClient

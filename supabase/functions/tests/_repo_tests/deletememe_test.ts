@@ -7,54 +7,54 @@ import { assertEquals } from "https://deno.land/std@0.224.0/assert/assert_equals
 const TEST_MEME_ID = "0488fbc7-e8b9-4341-9e5b-9f0eb90a6d84";
 const TEST_USER_ID = "9a9afb14-acbc-481a-a315-4b946dbf0491";
 
-// const createMockSupabase = (mockResponse: (conditions: object) => any) => ({
-//   from: (_tableName: string) => ({
-//     update: (_updateObj: object) => ({
-//       neq: (_column: string, _value: any) => ({
-//         match: (conditions: object) => ({
-//           select: (_columns: string) => ({
-//             single: async () => mockResponse(conditions),
-//           }),
-//         }),
-//       }),
-//     }),
-//   }),
-// });
-
-
 const createMockSupabase = (mockResponse: (conditions: object) => any) => ({
-  from: (tableName: string) => {
-    console.log(`[Mock] from(${tableName}) called`);
-    return {
-      update: (updateObj: object) => {
-        console.log(`[Mock] update(${JSON.stringify(updateObj)}) called`);
-        return {
-          neq: (column: string, value: any) => {
-            console.log(`[Mock] neq(${column} != ${value}) called`);
-            return {
-              match: (conditions: object) => {
-                console.log(`[Mock] match(${JSON.stringify(conditions)}) called`);
-                return {
-                  select: (columns: string) => {
-                    console.log(`[Mock] select(${columns}) called`);
-                    return {
-                      single: async () => {
-                        console.log(`[Mock] single() called - Executing mock response`);
-                        const response = mockResponse(conditions);
-                        console.log(`[Mock] Returning response:`, response);
-                        return response;
-                      },
-                    };
-                  },
-                };
-              },
-            };
-          },
-        };
-      },
-    };
-  },
+  from: () => ({
+    update: () => ({
+      neq: () => ({
+        match: (conditions: object) => ({
+          select: () => ({
+            single: async () => mockResponse(conditions),
+          }),
+        }),
+      }),
+    }),
+  }),
 });
+
+
+// const createMockSupabase = (mockResponse: (conditions: object) => any) => ({
+//   from: (tableName: string) => {
+//     console.log(`[Mock] from(${tableName}) called`);
+//     return {
+//       update: (updateObj: object) => {
+//         console.log(`[Mock] update(${JSON.stringify(updateObj)}) called`);
+//         return {
+//           neq: (column: string, value: any) => {
+//             console.log(`[Mock] neq(${column} != ${value}) called`);
+//             return {
+//               match: (conditions: object) => {
+//                 console.log(`[Mock] match(${JSON.stringify(conditions)}) called`);
+//                 return {
+//                   select: (columns: string) => {
+//                     console.log(`[Mock] select(${columns}) called`);
+//                     return {
+//                       single: async () => {
+//                         console.log(`[Mock] single() called - Executing mock response`);
+//                         const response = mockResponse(conditions);
+//                         console.log(`[Mock] Returning response:`, response);
+//                         return response;
+//                       },
+//                     };
+//                   },
+//                 };
+//               },
+//             };
+//           },
+//         };
+//       },
+//     };
+//   },
+// });
 
 
 Deno.test("Admin can delete any meme", async () => {

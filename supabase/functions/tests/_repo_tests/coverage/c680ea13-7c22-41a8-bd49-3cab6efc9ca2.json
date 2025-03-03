@@ -1,0 +1,56 @@
+{
+  "scriptId": "315",
+  "url": "file:///C:/Users/Vineetha/Documents/LitchillProject/LitzChill-Backend/supabase/functions/tests/_repo_tests/delete2_test.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 3774, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "createMockSupabase",
+      "ranges": [{ "startOffset": 450, "endOffset": 2013, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "from",
+      "ranges": [{ "startOffset": 479, "endOffset": 2008, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "update",
+      "ranges": [{ "startOffset": 616, "endOffset": 1993, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "neq",
+      "ranges": [{ "startOffset": 770, "endOffset": 1970, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "match",
+      "ranges": [{ "startOffset": 958, "endOffset": 1939, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "select",
+      "ranges": [{ "startOffset": 1149, "endOffset": 1900, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "single",
+      "ranges": [{ "startOffset": 1333, "endOffset": 1853, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 2054, "endOffset": 3771, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 2290, "endOffset": 2747, "count": 1 }],
+      "isBlockCoverage": true
+    }
+  ]
+}

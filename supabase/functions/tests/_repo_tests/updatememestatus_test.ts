@@ -1,113 +1,106 @@
-// deno-lint-ignore-file no-explicit-any require-await
+// deno-lint-ignore-file
 import { assertEquals } from "https://deno.land/std@0.224.0/assert/assert_equals.ts";
-import { updateMemeStatusQuery } from "../../_repository/_meme_repo/MemeRepository.ts"; // Adjust the import path
-import {  MEME_STATUS } from "../../_shared/_constants/Types.ts";
+import { updateMemeStatusQuery } from "../../_repository/_meme_repo/MemeRepository.ts";
+import { MEME_STATUS } from "../../_shared/_constants/Types.ts";
 
-function createMockSupabase(mockResponse: (conditions: object) => any) {
+const TEST_MEME_ID = "0488fbc7-e8b9-4341-9e5b-9f0eb90a6d84";
+const TEST_USER_ID = "9a9afb14-acbc-481a-a315-4b946dbf0491";
+const NEW_STATUS = MEME_STATUS.APPROVED;
+
+function createMockSupabase(response: object) {
   return {
-    from: (tableName: string) => {
-      console.log(`[Mock] from(${tableName}) called`);
-      return {
-        update: (updateObj: object) => {
-          console.log(`[Mock] update(${JSON.stringify(updateObj)}) called`);
-          return {
-            eq: (column: string, value: any) => {
-              console.log(`[Mock] eq(${column} = ${value}) called`);
-              return {
-                eq: (column2: string, value2: any) => {
-                  console.log(`[Mock] eq(${column2} = ${value2}) called`);
-                  return {
-                    neq: (column3: string, value3: any) => {
-                      console.log(`[Mock] neq(${column3} != ${value3}) called`);
-                      return {
-                        select: (columns: string) => {
-                          console.log(`[Mock] select(${columns}) called`);
-                          return {
-                            single: async () => {
-                              console.log(`[Mock] single() called - Executing mock response`);
-                              return mockResponse({
-                                meme_id: value,
-                                meme_status: updateObj,
-                                user_id: value2,
-                              });
-                            },
-                          };
-                        },
-                      };
-                    },
-                  };
+    from: () => ({
+      update: () => ({
+        eq: () => ({
+          eq: () => ({
+            neq: () => ({
+              select: () => ({
+                single: async () => {
+                  console.log("Returning response:", response);
+                  return response;
                 },
-              };
-            }, 
-          };
-        },
-      };
-    },
+              }),
+            }),
+          }),
+        }),
+      }),
+    }),
   };
 }
 
-//  Test 1: Successfully updating a meme's status
-Deno.test("updateMemeStatusQuery should update meme status successfully", async () => {
-  console.log("\n Running Test: Successfully updating a meme's status ");
-
-  const mockSupabase = createMockSupabase(() => ({
-    data: { meme_id: "0488fbc7-e8b9-4341-9e5b-9f0eb90a6d84", meme_status: MEME_STATUS.APPROVED, meme_title: "Funny Meme" },
+Deno.test("Successfully updates meme status", async () => {
+  console.log("\nRunning: Successfully updates meme status");
+  const mockSupabase = createMockSupabase({
+    data: { meme_id: TEST_MEME_ID, meme_status: NEW_STATUS, meme_title: "Funny Meme" },
     error: null,
-  }));
- console.log("mock supabase:",mockSupabase); 
- const result = await updateMemeStatusQuery("0488fbc7-e8b9-4341-9e5b-9f0eb90a6d84", MEME_STATUS.APPROVED, "9a9afb14-acbc-481a-a315-4b946dbf0491", mockSupabase as any);
+  });
 
-  const expectedResult = {
-    data: { meme_id: "0488fbc7-e8b9-4341-9e5b-9f0eb90a6d84", meme_status: MEME_STATUS.APPROVED, meme_title: "Funny Meme" },
+  console.log("Executing updateMemeStatusQuery...");
+  const result = await updateMemeStatusQuery(TEST_MEME_ID, NEW_STATUS, TEST_USER_ID, mockSupabase as any);
+  console.log("Result:", result);
+
+  assertEquals(result, {
+    data: { meme_id: TEST_MEME_ID, meme_status: NEW_STATUS, meme_title: "Funny Meme" },
     error: null,
-  };
-
-  console.log("[Test] Expected result:", expectedResult);
-  console.log("[Test] Actual result:", result);
-
-  assertEquals(result, expectedResult);
+  });
 });
 
-//Test 2: Failing when the meme is already deleted
-Deno.test("updateMemeStatusQuery should fail if meme is deleted", async () => {
-  console.log("\n  Running Test: Failing when the meme is already deleted ");
+Deno.test(" meme not found ", async () => {
+  console.log("\nRunning: Returns null when meme not found");
+  const mockSupabase = createMockSupabase({ data: null, error: {
+    name: "PostgrestError",
+    message: "Update failed",
+    details: "Meme not found",
+    hint: TEST_MEME_ID,
+    code: "404",
+  } });
 
-  const mockSupabase = createMockSupabase(() => ({
-    data: null,
-    error: { message: "Meme is already deleted" },
-  }));
+  const result = await updateMemeStatusQuery(TEST_MEME_ID, NEW_STATUS, TEST_USER_ID, mockSupabase as any);
+  console.log("Result:", result);
 
-  const result = await updateMemeStatusQuery("0488fbc7-e8b9-4341-9e5b-9f0eb90a6d84", MEME_STATUS.APPROVED, "9a9afb14-acbc-481a-a315-4b946dbf0491", mockSupabase as any);
-
-  const expectedResult = {
-    data: null,
-    error: { message: "Meme is already deleted" },
-  };
-
-  console.log("[Test] Expected result:", expectedResult);
-  console.log("[Test] Actual result:", result);
-
-  assertEquals(result, expectedResult);
+  assertEquals(result, { data: null, error: {
+    name: "PostgrestError",
+    message: "Update failed",
+    details: "Meme not found",
+    hint: TEST_MEME_ID,
+    code: "404",
+  } });
 });
 
-// Test 3: Failing when the user is not the meme owner
-Deno.test("updateMemeStatusQuery should fail if user is not meme owner", async () => {
-  console.log("\n  Running Test: Failing when the user is not meme owner ");
+Deno.test("Does not update if meme is already deleted", async () => {
+  console.log("\nRunning: Does not update if meme is already deleted");
+  const mockSupabase = createMockSupabase({ data: null, error: {message:"Meme not found"} });
 
-  const mockSupabase = createMockSupabase(() => ({
+  console.log("Executing updateMemeStatusQuery...");
+  const result = await updateMemeStatusQuery(TEST_MEME_ID, NEW_STATUS, TEST_USER_ID, mockSupabase as any);
+  console.log("Result:", result);
+
+  assertEquals(result, { data: null, error: {message:"Meme not found"} });
+});
+
+Deno.test("Internal server error 500", async () => {
+  console.log("\nRunning: Returns internal server error 500");
+  const mockSupabase = createMockSupabase({
     data: null,
-    error: { message: "User is not the owner of this meme" },
-  }));
+    error: {
+      name: "PostgrestError",
+      message: "Internal server error",
+      details: "Unexpected error occurred",
+      code: "500",
+    },
+  });
 
-  const result = await updateMemeStatusQuery("0488fbc7-e8b9-4341-9e5b-9f0eb90a6d84", MEME_STATUS.APPROVED, "9a9afb14-acbc-481a-a315-4b946dbf0491", mockSupabase as any);
+  console.log("Executing updateMemeStatusQuery...");
+  const result = await updateMemeStatusQuery(TEST_MEME_ID, NEW_STATUS, TEST_USER_ID, mockSupabase as any);
+  console.log("Result:", result);
 
-  const expectedResult = {
+  assertEquals(result, {
     data: null,
-    error: { message: "User is not the owner of this meme" },
-  };
-
-  console.log("[Test] Expected result:", expectedResult);
-  console.log("[Test] Actual result:", result);
-
-  assertEquals(result, expectedResult);
+    error: {
+      name: "PostgrestError",
+      message: "Internal server error",
+      details: "Unexpected error occurred",
+      code: "500",
+    },
+  });
 });

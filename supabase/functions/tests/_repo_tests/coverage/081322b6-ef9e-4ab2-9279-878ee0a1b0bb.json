@@ -1,0 +1,81 @@
+{
+  "scriptId": "315",
+  "url": "file:///C:/Users/Vineetha/Documents/LitchillProject/LitzChill-Backend/supabase/functions/tests/_repo_tests/getmemebyid_test.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 5389, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "createMockSupabase",
+      "ranges": [{ "startOffset": 448, "endOffset": 4263, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "from",
+      "ranges": [{ "startOffset": 513, "endOffset": 4256, "count": 2 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "select",
+      "ranges": [
+        { "startOffset": 621, "endOffset": 4241, "count": 2 },
+        { "startOffset": 788, "endOffset": 2767, "count": 1 },
+        { "startOffset": 2767, "endOffset": 4240, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "neq",
+      "ranges": [{ "startOffset": 830, "endOffset": 1586, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "eq",
+      "ranges": [{ "startOffset": 976, "endOffset": 1551, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "single",
+      "ranges": [{ "startOffset": 1144, "endOffset": 1508, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "eq",
+      "ranges": [{ "startOffset": 1743, "endOffset": 2740, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "limit",
+      "ranges": [{ "startOffset": 1898, "endOffset": 2705, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "single",
+      "ranges": [
+        { "startOffset": 2041, "endOffset": 2662, "count": 1 },
+        { "startOffset": 2490, "endOffset": 2661, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "eq",
+      "ranges": [{ "startOffset": 2906, "endOffset": 4183, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 4322, "endOffset": 5386, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "mockSupabaseQuery",
+      "ranges": [
+        { "startOffset": 4402, "endOffset": 4988, "count": 1 },
+        { "startOffset": 4884, "endOffset": 4984, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    }
+  ]
+}

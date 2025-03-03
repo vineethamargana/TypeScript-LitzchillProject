@@ -1,3 +1,4 @@
+// deno-lint-ignore-file
 import { deleteMemeQuery } from "../../_repository/_meme_repo/MemeRepository.ts";
 import { MEME_STATUS } from "../../_shared/_constants/Types.ts";
 import { USER_ROLES } from "../../_shared/_constants/UserRoles.ts";
