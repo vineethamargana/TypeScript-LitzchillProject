@@ -63,7 +63,7 @@ Deno.test("Should return an error when inserting meme fails", async () => {
   }
     const mockSupabase = createMockSupabase(mockResponse);
   
-    const result = await createMemeQuery( memeData,mockSupabase as any);
+    const result = await createMemeQuery(memeData,mockSupabase as any);
   
     const expectedResult = { data: null, error: { message: "Insertion failed" } };
   

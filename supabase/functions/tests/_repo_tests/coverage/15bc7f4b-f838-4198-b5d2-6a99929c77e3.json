@@ -1,0 +1,104 @@
+{
+  "scriptId": "315",
+  "url": "file:///C:/Users/Vineetha/Documents/LitchillProject/LitzChill-Backend/supabase/functions/tests/_repo_tests/uploadfile_test.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 4567, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "createMockSupabase",
+      "ranges": [{ "startOffset": 161, "endOffset": 778, "count": 5 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "from",
+      "ranges": [{ "startOffset": 239, "endOffset": 765, "count": 7 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "getPublicUrl",
+      "ranges": [
+        { "startOffset": 270, "endOffset": 383, "count": 5 },
+        { "startOffset": 345, "endOffset": 352, "count": 2 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "upload",
+      "ranges": [
+        { "startOffset": 403, "endOffset": 754, "count": 2 },
+        { "startOffset": 447, "endOffset": 629, "count": 1 },
+        { "startOffset": 629, "endOffset": 693, "count": 0 },
+        { "startOffset": 694, "endOffset": 700, "count": 1 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 822, "endOffset": 1241, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 1300, "endOffset": 1553, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 1610, "endOffset": 2029, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 2079, "endOffset": 2429, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 2491, "endOffset": 2862, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "createMockSupabaseWithError",
+      "ranges": [{ "startOffset": 2865, "endOffset": 3180, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "from",
+      "ranges": [{ "startOffset": 2944, "endOffset": 3167, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "getPublicUrl",
+      "ranges": [{ "startOffset": 2975, "endOffset": 3057, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "upload",
+      "ranges": [{ "startOffset": 3077, "endOffset": 3156, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 3247, "endOffset": 3574, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 3628, "endOffset": 4071, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "from",
+      "ranges": [{ "startOffset": 3885, "endOffset": 3943, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 4131, "endOffset": 4564, "count": 1 }],
+      "isBlockCoverage": true
+    }
+  ]
+}
