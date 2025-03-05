@@ -22,7 +22,7 @@ import Logger from "@shared/Logger/logger.ts";
  *   - Validation failures for the meme data.
  *   - Failure to update the meme in the database.
  */
-export default async function updateMeme(req: Request,params:Record<string,string>): Promise<Response> {
+export default async function updateMeme(req: Request,params:Record<string,string>,updateMemeQueryFn = updatememeQuery ): Promise<Response> {
     const logger = Logger.getInstance();
     try {
         const meme_id = params.id;
@@ -45,7 +45,7 @@ export default async function updateMeme(req: Request,params:Record<string,strin
           const tagsRaw = body[MEMEFIELDS.TAGS] || undefined;
           const tags = tagsRaw ? parseTags(tagsRaw) : undefined;
   
-          logger.info("Extracted values:"+ meme_title + tags );
+          logger.info("Extracted values:"+ meme_title+" " + tags );
 
         
         const validationResponse = await validateMemeData(true,meme_title,tags);
@@ -55,7 +55,7 @@ export default async function updateMeme(req: Request,params:Record<string,strin
 
         const meme: Partial<Meme> = {meme_title,tags,meme_id,user_id};
         // Perform the update
-        const {data:updatememe,error} = await updatememeQuery(meme,user_type);
+        const {data:updatememe,error} = await updateMemeQueryFn(meme,user_type);
         logger.info("updatememe: "+updatememe+" error: " +error)
         if(error || !updatememe)
         {

@@ -216,7 +216,7 @@ export async function fetchMemes(page: number,limit: number,sort: string,tags: s
     }
 
     // Use map() to create an array of public user IDs
-    const publicUserIds = publicUsers.map(function(user) {
+    const publicUserIds = publicUsers.map(function(user: { user_id: any; }) {
                                                  return user.user_id; // For each user, return their user_id
                                           });
     // Base query to fetch memes

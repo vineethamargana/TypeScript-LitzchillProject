@@ -1,0 +1,61 @@
+{
+  "scriptId": "315",
+  "url": "file:///C:/Users/Vineetha/Documents/LitchillProject/LitzChill-Backend/supabase/functions/tests/_handler_tests/updatememe_test.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 6837, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 621, "endOffset": 1100, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 1180, "endOffset": 1711, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 1752, "endOffset": 2317, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 2359, "endOffset": 2936, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 2986, "endOffset": 3541, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "mockUpdateMemeQuery",
+      "ranges": [{ "startOffset": 4155, "endOffset": 4350, "count": 3 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "updateMemeQuery",
+      "ranges": [{ "startOffset": 4198, "endOffset": 4322, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 4397, "endOffset": 5315, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 5360, "endOffset": 6019, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 6074, "endOffset": 6834, "count": 1 }],
+      "isBlockCoverage": true
+    }
+  ]
+}

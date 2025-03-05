@@ -85,7 +85,9 @@ export function validateMemeData(isUpdate: boolean = false,meme_title?:string ,t
  * @param tags - Tags array to validate
  * @param validationErrors - Array to accumulate validation error messages
  */
-function validateMemeFields(meme_title: string | undefined, tags: string[] | undefined, validationErrors: string[]) {
+export function validateMemeFields(meme_title: string | undefined, tags: string[] | undefined, validationErrors: string[]) {
+    console.log('running validation')
+    console.log(meme_title,tags,validationErrors);
     // Validate meme title
     if (meme_title) {
         if (meme_title.trim().length < 3 || meme_title.trim().length > 100) {
@@ -97,6 +99,7 @@ function validateMemeFields(meme_title: string | undefined, tags: string[] | und
     }
 // Validate tags (only invalid tags, not missing ones)
      if (tags && tags.length > 0) {
+        console.log("Validation tags: " + tags)
         for (const tag of tags) {
             if (tag.length < 1 || tag.length > 20 ){
                 validationErrors.push(MEME_ERROR_MESSAGES.INVALID_TAG_LENGTH);

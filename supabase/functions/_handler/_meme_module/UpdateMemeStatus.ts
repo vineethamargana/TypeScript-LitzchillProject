@@ -1,5 +1,5 @@
 import { V4 } from "@V4";
-import { updateMemeStatusQuery } from "@repository/_meme_repo/MemeRepository.ts";
+import { updateMemeStatusQuery  } from "@repository/_meme_repo/MemeRepository.ts";
 import { ErrorResponse, SuccessResponse } from "@response/Response.ts";
 import { HTTP_STATUS_CODE } from "@shared/_constants/HttpStatusCodes.ts";
 import { MEME_ERROR_MESSAGES, MEME_SUCCESS_MESSAGES } from "@shared/_messages/Meme_Module_Messages.ts";
@@ -8,7 +8,7 @@ import { MEMEFIELDS } from "@shared/_db_table_details/MemeTableFields.ts";
 import { MEME_STATUS } from "@shared/_constants/Types.ts";
 import Logger from "@shared/Logger/logger.ts";
 
-export default async function updateMemeStatus(req: Request, params: Record<string, string>) {
+export default async function updateMemeStatus(req: Request, params: Record<string, string>, updateMemeStatusQueryFn = updateMemeStatusQuery) {
     const logger = Logger.getInstance();
   try {
       const meme_id = params.id;
@@ -38,7 +38,7 @@ export default async function updateMemeStatus(req: Request, params: Record<stri
       }
 
       // Update meme status
-      const { data: updatedMemeStatus, error } = await updateMemeStatusQuery(meme_id, meme_status,user_id);
+      const { data: updatedMemeStatus, error } = await updateMemeStatusQueryFn(meme_id, meme_status,user_id);
       if (error || !updatedMemeStatus) {
           logger.error("Database update failed:"+ error);
           return ErrorResponse(HTTP_STATUS_CODE.INTERNAL_SERVER_ERROR, MEME_ERROR_MESSAGES.FAILED_TO_UPDATE);

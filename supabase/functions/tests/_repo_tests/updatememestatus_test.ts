@@ -7,7 +7,7 @@ const TEST_MEME_ID = "0488fbc7-e8b9-4341-9e5b-9f0eb90a6d84";
 const TEST_USER_ID = "9a9afb14-acbc-481a-a315-4b946dbf0491";
 const NEW_STATUS = MEME_STATUS.APPROVED;
 
-function createMockSupabase(response: object) {
+export function createMockSupabase(response: object) {
   return {
     from: () => ({
       update: () => ({
