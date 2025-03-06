@@ -28,12 +28,12 @@ import Logger from "@shared/Logger/logger.ts";
  * 
  * @throws {Error} Throws an error if any part of the process fails unexpectedly.
  */
-export default async function createMeme(req: Request, user: Record<string, string>): Promise<Response> {
+export default async function createMeme(req: Request, params: Record<string, string>, uploadFileToBucketQuery = uploadFileToBucket,CreateMemeQueryFn = createMemeQuery): Promise<Response> {
     const logger = Logger.getInstance();  // Get the logger instance
     logger.log("Processing createMeme handler");
 
     try {
-        const { user_id } = user;
+        const user_id = params.user_id;
         logger.info(`User_id is: ${user_id}`);
 
       //  Ensure the content type is multipart/form-data
@@ -61,7 +61,7 @@ export default async function createMeme(req: Request, user: Record<string, stri
         }
 
         // Step 2: Upload the image to the bucket and get the public URL
-        const uploadedUrl = await uploadFileToBucket(media_file, meme_title);
+        const uploadedUrl = await uploadFileToBucketQuery(media_file, meme_title);
         if (!uploadedUrl) {
             logger.error("Failed to upload media file to bucket.");
             return await ErrorResponse(HTTP_STATUS_CODE.INTERNAL_SERVER_ERROR, MEME_ERROR_MESSAGES.MEDIA_UPLOAD_FAILED);
@@ -71,7 +71,7 @@ export default async function createMeme(req: Request, user: Record<string, stri
         const meme: Partial<Meme> = { meme_title, tags, media_file: uploadedUrl, user_id };
 
         // Insert the meme into the database
-        const { data: insertmeme, error: insertError } = await createMemeQuery(meme);
+        const { data: insertmeme, error: insertError } = await CreateMemeQueryFn(meme);
         if (insertError) {
             logger.error("Failed to insert meme into the database.");
             return await ErrorResponse(HTTP_STATUS_CODE.INTERNAL_SERVER_ERROR, MEME_ERROR_MESSAGES.FAILED_TO_CREATE);

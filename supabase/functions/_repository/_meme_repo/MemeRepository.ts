@@ -1,3 +1,4 @@
+// deno-lint-ignore-file
 import supabase from "@shared/_config/DbConfig.ts";
 import { BUCKET_NAME, TABLE_NAMES } from "@shared/_db_table_details/TableNames.ts";
 import { MEMEFIELDS } from '@shared/_db_table_details/MemeTableFields.ts';
@@ -7,6 +8,24 @@ import { MEME_STATUS } from '@shared/_constants/Types.ts';
 import Logger from "@shared/Logger/logger.ts";
 
 const logger = Logger.getInstance();
+
+export async function meme_exists(meme_id: string) {
+    // Check if meme exists and ensure it's not deleted
+    const { data: existingMeme, error: fetchError } = await supabase
+        .from(TABLE_NAMES.MEME_TABLE)
+        .select("*")
+        .eq(MEMEFIELDS.MEME_ID, meme_id)
+        .neq(MEMEFIELDS.MEME_STATUS,MEME_STATUS.DELETED)
+        .maybeSingle();  // Ensure only one row is returned
+
+
+        logger.info(existingMeme+" "+fetchError);
+
+
+    if (fetchError || !existingMeme)  return null;
+    return existingMeme;
+}
+
 /**
  * Uploads a file (image or video) to the specified bucket.
  * 

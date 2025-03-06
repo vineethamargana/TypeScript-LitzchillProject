@@ -1,4 +1,4 @@
-import { fetchMemes } from "@repository/_meme_repo/MemeRepository.ts";
+import * as MemeRepository from "@repository/_meme_repo/MemeRepository.ts";
 import { ErrorResponse, SuccessResponse } from "@response/Response.ts";
 import { HTTP_STATUS_CODE } from "@shared/_constants/HttpStatusCodes.ts";
 import { COMMON_ERROR_MESSAGES } from "@shared/_messages/ErrorMessages.ts";
@@ -26,7 +26,7 @@ import Logger from "@shared/Logger/logger.ts";
  * 
  * @throws {Error} Throws an error if there is an unexpected failure while fetching memes.
  */
-export default async function getAllMemes(req: Request): Promise<Response> { 
+export default async function getAllMemes(req: Request, getAllMemes = MemeRepository.fetchMemes): Promise<Response> { 
      const logger = Logger.getInstance();  // Get the logger instance
     try {
         const url = new URL(req.url);
@@ -38,7 +38,7 @@ export default async function getAllMemes(req: Request): Promise<Response> {
         logger.info(`Fetching memes with params: page=${page}, limit=${limit}, sort=${sort}, tag=${tag}`);
 
         // Fetch memes from the repository using the provided parameters
-        const { data: allmemes, error } = await fetchMemes(page, limit, sort, tag);
+        const { data: allmemes, error } = await getAllMemes(page, limit, sort, tag);
  
         // Handle errors and return appropriate responses
         if (error || !allmemes || allmemes.length === 0) {
@@ -47,7 +47,7 @@ export default async function getAllMemes(req: Request): Promise<Response> {
         }
 
         logger.info(`Successfully fetched ${allmemes.length} memes.`);
-        return SuccessResponse(HTTP_STATUS_CODE.OK, MEME_SUCCESS_MESSAGES.MEME_FETCHED_SUCCESSFULLY, allmemes);
+        return SuccessResponse(HTTP_STATUS_CODE.OK, MEME_SUCCESS_MESSAGES.MEMES_FETCHED_SUCCESSFULLY, allmemes);
     } catch (error) {
         logger.error(`Error occurred while fetching memes: ${error}`);
         return ErrorResponse(HTTP_STATUS_CODE.INTERNAL_SERVER_ERROR, COMMON_ERROR_MESSAGES.INTERNAL_SERVER_ERROR);

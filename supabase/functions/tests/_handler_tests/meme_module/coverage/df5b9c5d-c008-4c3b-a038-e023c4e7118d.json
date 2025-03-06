@@ -1,0 +1,30 @@
+{
+  "scriptId": "316",
+  "url": "file:///C:/Users/Vineetha/Documents/LitchillProject/LitzChill-Backend/supabase/functions/_handler/_meme_module/DeleteMeme.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 2875, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "DeletememebyID",
+      "ranges": [
+        { "startOffset": 1239, "endOffset": 2874, "count": 8 },
+        { "startOffset": 1702, "endOffset": 1725, "count": 7 },
+        { "startOffset": 1727, "endOffset": 1903, "count": 2 },
+        { "startOffset": 1903, "endOffset": 2046, "count": 6 },
+        { "startOffset": 2046, "endOffset": 2150, "count": 5 },
+        { "startOffset": 2150, "endOffset": 2479, "count": 4 },
+        { "startOffset": 2284, "endOffset": 2312, "count": 1 },
+        { "startOffset": 2313, "endOffset": 2456, "count": 3 },
+        { "startOffset": 2336, "endOffset": 2364, "count": 1 },
+        { "startOffset": 2365, "endOffset": 2456, "count": 2 },
+        { "startOffset": 2388, "endOffset": 2415, "count": 1 },
+        { "startOffset": 2416, "endOffset": 2456, "count": 1 },
+        { "startOffset": 2479, "endOffset": 2872, "count": 1 }
+      ],
+      "isBlockCoverage": true
+    }
+  ]
+}

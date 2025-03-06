@@ -30,7 +30,7 @@ export default async function updateMeme(req: Request,params:Record<string,strin
         const user_type = params.user_type;
 
        // console.log (user_id,meme_id,user_type)
-       logger.info ("meme_id: "+meme_id+"user_id: "+user_id+"user_type: "+user_type);
+       logger.info ("meme_id: "+meme_id+"  user_id: "+user_id+"user_type: "+user_type);
         
         // Validate the meme_id parameter
         if (!meme_id || !V4.isValid(meme_id)) { 
@@ -50,9 +50,11 @@ export default async function updateMeme(req: Request,params:Record<string,strin
         
         const validationResponse = await validateMemeData(true,meme_title,tags);
         if (validationResponse instanceof Response) {
+            console.log("validationResponse");
             return validationResponse; // If there are validation errors, return the response
         }
-
+ 
+        console.log("Validation passed");
         const meme: Partial<Meme> = {meme_title,tags,meme_id,user_id};
         // Perform the update
         const {data:updatememe,error} = await updateMemeQueryFn(meme,user_type);

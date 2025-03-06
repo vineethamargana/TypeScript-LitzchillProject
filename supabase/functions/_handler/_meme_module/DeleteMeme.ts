@@ -58,10 +58,7 @@ export default async function DeletememebyID(
         }
 
         logger.info(`Meme deleted successfully: meme_id=${meme_id}`);
-        return await SuccessResponse(
-            HTTP_STATUS_CODE.OK,
-            MEME_SUCCESS_MESSAGES.MEME_DELETED_SUCCESSFULLY
-        );
+        return await SuccessResponse(HTTP_STATUS_CODE.OK,MEME_SUCCESS_MESSAGES.MEME_DELETED_SUCCESSFULLY);
 
     } catch (error) {
         logger.error(`Internal Server Error while deleting meme. Details: ${error}`);

@@ -1,0 +1,24 @@
+{
+  "scriptId": "327",
+  "url": "file:///C:/Users/Vineetha/Documents/LitchillProject/LitzChill-Backend/supabase/functions/_responses/Response.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 977, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "ErrorResponse",
+      "ranges": [{ "startOffset": 32, "endOffset": 283, "count": 5 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "SuccessResponse",
+      "ranges": [
+        { "startOffset": 660, "endOffset": 976, "count": 1 },
+        { "startOffset": 829, "endOffset": 833, "count": 0 }
+      ],
+      "isBlockCoverage": true
+    }
+  ]
+}

@@ -65,6 +65,7 @@ export function validateMemeData(isUpdate: boolean = false,meme_title?:string ,t
 
     // If creating a meme, check for required fields
     if (!isUpdate) {
+        console.log("going to check for required fields");
         checkRequiredFields(meme_title, tags, media_file, validationErrors);
     }
     // Common validation for both create and update

@@ -23,7 +23,7 @@ import Logger from "@shared/Logger/logger.ts";
  *   - Failure to insert like or update like count.
  *   - Failure to notify the meme owner.
  */
-export default async function likememe(_req: Request, params: Record<string, string>) {
+export default async function likememe(_req: Request, params: Record<string, string>,CheckMemeExists=meme_exists, likememeQuery = insertLikeQuery) {
     const logger = Logger.getInstance();
     try {
         const user_id = params.user_id;
@@ -37,7 +37,7 @@ export default async function likememe(_req: Request, params: Record<string, str
         }
 
         // Step 1: Check if meme exists
-        const existingMeme = await meme_exists(meme_id);
+        const existingMeme = await CheckMemeExists(meme_id);
         if (!existingMeme) {
             logger.error(`Meme with ID ${meme_id} not found.`);
             return ErrorResponse(HTTP_STATUS_CODE.NOT_FOUND, MEME_ERROR_MESSAGES.MEME_NOT_FOUND);
@@ -47,7 +47,7 @@ export default async function likememe(_req: Request, params: Record<string, str
 
         // Step 2: Insert a new like record
         const likeable_type = "meme";
-        const { data: _likeMeme, error: likeError } = await insertLikeQuery(meme_id, user_id, likeable_type);
+        const { data: _likeMeme, error: likeError } = await likememeQuery(meme_id, user_id, likeable_type);
         if (likeError) {
             logger.error(`Failed to like meme ${meme_id} by user ${user_id}  returned error: ${JSON.stringify(likeError)}`);
             return ErrorResponse(HTTP_STATUS_CODE.INTERNAL_SERVER_ERROR, LIKE_ERROR.INSERTION_FAILED);

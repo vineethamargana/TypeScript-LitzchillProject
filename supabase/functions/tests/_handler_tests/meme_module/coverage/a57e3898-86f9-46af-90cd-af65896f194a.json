@@ -1,0 +1,30 @@
+{
+  "scriptId": "316",
+  "url": "file:///C:/Users/Vineetha/Documents/LitchillProject/LitzChill-Backend/supabase/functions/_handler/_meme_module/UpateMeme.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 3411, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "updateMeme",
+      "ranges": [
+        { "startOffset": 1314, "endOffset": 3410, "count": 6 },
+        { "startOffset": 1742, "endOffset": 1765, "count": 5 },
+        { "startOffset": 1767, "endOffset": 1939, "count": 2 },
+        { "startOffset": 1939, "endOffset": 2132, "count": 4 },
+        { "startOffset": 2132, "endOffset": 2144, "count": 1 },
+        { "startOffset": 2188, "endOffset": 2200, "count": 2 },
+        { "startOffset": 2227, "endOffset": 2247, "count": 2 },
+        { "startOffset": 2248, "endOffset": 2259, "count": 2 },
+        { "startOffset": 2403, "endOffset": 2452, "count": 3 },
+        { "startOffset": 2452, "endOffset": 2588, "count": 1 },
+        { "startOffset": 2588, "endOffset": 2901, "count": 2 },
+        { "startOffset": 2901, "endOffset": 2915, "count": 1 },
+        { "startOffset": 2917, "endOffset": 3408, "count": 1 }
+      ],
+      "isBlockCoverage": true
+    }
+  ]
+}

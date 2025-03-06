@@ -1,0 +1,23 @@
+{
+  "scriptId": "319",
+  "url": "file:///C:/Users/Vineetha/Documents/LitchillProject/LitzChill-Backend/supabase/functions/_handler/_meme_module/getMemeByID.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 2799, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "getmemebyID",
+      "ranges": [
+        { "startOffset": 1323, "endOffset": 2798, "count": 5 },
+        { "startOffset": 1777, "endOffset": 1800, "count": 4 },
+        { "startOffset": 1802, "endOffset": 1982, "count": 2 },
+        { "startOffset": 1982, "endOffset": 2164, "count": 3 },
+        { "startOffset": 2164, "endOffset": 2218, "count": 2 },
+        { "startOffset": 2218, "endOffset": 2796, "count": 1 }
+      ],
+      "isBlockCoverage": true
+    }
+  ]
+}

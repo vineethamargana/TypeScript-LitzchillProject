@@ -1,0 +1,27 @@
+{
+  "scriptId": "316",
+  "url": "file:///C:/Users/Vineetha/Documents/LitchillProject/LitzChill-Backend/supabase/functions/_handler/_meme_module/CreateMeme.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 4358, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "createMeme",
+      "ranges": [
+        { "startOffset": 1665, "endOffset": 4357, "count": 13 },
+        { "startOffset": 2100, "endOffset": 2105, "count": 1 },
+        { "startOffset": 2206, "endOffset": 2367, "count": 1 },
+        { "startOffset": 2367, "endOffset": 3044, "count": 12 },
+        { "startOffset": 3044, "endOffset": 3139, "count": 8 },
+        { "startOffset": 3139, "endOffset": 3310, "count": 4 },
+        { "startOffset": 3310, "endOffset": 3494, "count": 1 },
+        { "startOffset": 3494, "endOffset": 3759, "count": 3 },
+        { "startOffset": 3759, "endOffset": 3781, "count": 2 },
+        { "startOffset": 3781, "endOffset": 4355, "count": 1 }
+      ],
+      "isBlockCoverage": true
+    }
+  ]
+}
