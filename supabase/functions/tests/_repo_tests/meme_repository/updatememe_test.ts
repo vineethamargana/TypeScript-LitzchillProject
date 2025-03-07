@@ -75,10 +75,16 @@ Deno.test("Admin can update any meme", async () => {
 
   let receivedConditions: object | null = null;
 
-  const mockSupabase = createMockSupabase((conditions) => {
-    receivedConditions = conditions;
-    return { data: { ...UPDATED_MEME, updated_at: "2025-02-27T12:00:00Z" }, error: null };
-  });
+  function mockUpdateResponse(conditions: object) {
+    receivedConditions = conditions; 
+    return { 
+      data: { ...UPDATED_MEME, updated_at: "2025-02-27T12:00:00Z"}, 
+      error: null
+        };
+  }
+  
+  const mockSupabase = createMockSupabase(mockUpdateResponse);
+  
 
   console.log("Executing updatememeQuery...");
   const result = await updatememeQuery(UPDATED_MEME, USER_ROLES.ADMIN_ROLE, mockSupabase as any);
@@ -195,3 +201,5 @@ Deno.test("Update should return an internal server error (500)", async () => {
 
   console.log(" Internal server error test passed.\n");
 });
+
+

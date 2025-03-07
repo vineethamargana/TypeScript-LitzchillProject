@@ -1,0 +1,25 @@
+{
+  "scriptId": "316",
+  "url": "file:///C:/Users/Vineetha/Documents/LitchillProject/LitzChill-Backend/supabase/functions/_handler/_likes_module/LikeMeme.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 2930, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "likememe",
+      "ranges": [
+        { "startOffset": 1382, "endOffset": 2929, "count": 6 },
+        { "startOffset": 1716, "endOffset": 1739, "count": 5 },
+        { "startOffset": 1741, "endOffset": 1911, "count": 2 },
+        { "startOffset": 1911, "endOffset": 2028, "count": 4 },
+        { "startOffset": 2028, "endOffset": 2185, "count": 1 },
+        { "startOffset": 2185, "endOffset": 2415, "count": 3 },
+        { "startOffset": 2415, "endOffset": 2435, "count": 2 },
+        { "startOffset": 2435, "endOffset": 2927, "count": 1 }
+      ],
+      "isBlockCoverage": true
+    }
+  ]
+}

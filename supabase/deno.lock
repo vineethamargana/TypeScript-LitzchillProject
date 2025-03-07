@@ -93,10 +93,13 @@
   "redirects": {
     "https://deno.land/std/expect/mod.ts": "https://deno.land/std@0.224.0/expect/mod.ts",
     "https://deno.land/std/testing/asserts.ts": "https://deno.land/std@0.224.0/testing/asserts.ts",
-    "https://deno.land/std/testing/bdd.ts": "https://deno.land/std@0.224.0/testing/bdd.ts"
+    "https://deno.land/std/testing/bdd.ts": "https://deno.land/std@0.224.0/testing/bdd.ts",
+    "https://deno.land/x/mockery/mod.ts": "https://deno.land/x/mockery@1.0.2/mod.ts"
   },
   "remote": {
+    "https://cdn.skypack.dev/-/sinon@v14.0.0-CyrxAF9CJh9hOOnbtvbz/dist=es2019,mode=imports/optimized/sinon.js": "2f76d4108a756f812f8378005cffeddc118036986f45bf5ecf61cdd7a5662e28",
     "https://cdn.skypack.dev/-/sinon@v19.0.2-xTwzHcLiGPkyncCQvfOv/dist=es2019,mode=imports/optimized/sinon.js": "38f92b4d1140c7a7088b7c3589b6a81222315d6ad91fcbbb5d094631fe3f9388",
+    "https://cdn.skypack.dev/sinon@14.0.0": "648d7680e355050c96c3324e900830048390d349070e90be4fc9eb9d347b5e67",
     "https://cdn.skypack.dev/sinon@latest": "42cf5750c021a0fd6a13c94f29f38955eddff15b361593062647173ea610ca6f",
     "https://deno.land/std@0.113.0/_util/assert.ts": "2f868145a042a11d5ad0a3c748dcf580add8a0dbc0e876eaa0026303a5488f58",
     "https://deno.land/std@0.113.0/async/deadline.ts": "1d6ac7aeaee22f75eb86e4e105d6161118aad7b41ae2dd14f4cfd3bf97472b93",
@@ -259,6 +262,15 @@
     "https://deno.land/x/mock@0.15.2/mod.ts": "d032317cb9ac497ba28355a07c1cd389d992f140a9fccca5224a3daf19ef2210",
     "https://deno.land/x/mock@0.15.2/time.ts": "0f2948cf4ab62f02e8133a37d88b425d2d7f848d639870bbe815559971190445",
     "https://deno.land/x/mock@0.15.2/time_deps.ts": "3fca1b385d8661712b66780839971c4f7b70cc8f7d33e209c92ac684a1ca1edf",
+    "https://deno.land/x/mockery@1.0.2/mod.ts": "f80f9dca5b457cc997ac156105cf9b7b9ba5681f8f09929ae0f24312e2ae23cc",
+    "https://deno.land/x/mockery@1.0.2/name.ts": "12af7b1dfa0ec65a7c8faf600db8bbc0d8fb0de708d4fd2a6c2a029a75a270cb",
+    "https://deno.land/x/mockery@1.0.2/phone.ts": "8253cce175bd62f618ae2aa03f21106c6c98aebe429156d57767cb9e46278bd9",
+    "https://deno.land/x/mockery@1.0.2/place.ts": "cdaae372250bf2dd9d32d05ef3fcb396ef90262b89b0842989cdcaa2bc2f368a",
+    "https://deno.land/x/mockery@1.0.2/raw/lipsum.json": "664d3a5dac8bfcb64df110085db3787e4b8360500957fd79d90427bfc1570838",
+    "https://deno.land/x/mockery@1.0.2/raw/names.json": "aee0d704b2206d025e4a4a9fbe3f01c47d13bfbd52d3335f6c676fcd0c577843",
+    "https://deno.land/x/mockery@1.0.2/raw/us_places.json": "1936b387ae4c851f5f74f53ff91102b8a20484d933da8cbc14731ea2d98aa48e",
+    "https://deno.land/x/mockery@1.0.2/text.ts": "f1deefddfb82009ba17543690d640b3a71b2d237709366b110b6a5327d64dd76",
+    "https://deno.land/x/mockery@1.0.2/utils.ts": "e6669b64c5f5c7527920682716208fdb3304cb338d613636cddf7a9149ae393e",
     "https://deno.land/x/uuid@v0.1.2/mod.ts": "efc48233163b385262e5ec79662ad76f7684ad80080fc69a140c6e01e56c75d8",
     "https://deno.land/x/uuid@v0.1.2/v4.ts": "00392ef1efb815545d6b0ec5fb0260d4ed4295259abc3162766e397c47226a7b"
   }

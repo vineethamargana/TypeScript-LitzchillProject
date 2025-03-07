@@ -1,0 +1,65 @@
+{
+  "scriptId": "315",
+  "url": "file:///C:/Users/Vineetha/Documents/LitchillProject/LitzChill-Backend/supabase/functions/tests/_handler_tests/like_module/likememe_test.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 4550, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "mockCheckMemeExists",
+      "ranges": [{ "startOffset": 478, "endOffset": 567, "count": 4 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 528, "endOffset": 564, "count": 4 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "mockLikeMeme",
+      "ranges": [{ "startOffset": 568, "endOffset": 754, "count": 3 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [
+        { "startOffset": 611, "endOffset": 751, "count": 3 },
+        { "startOffset": 680, "endOffset": 726, "count": 1 },
+        { "startOffset": 726, "endOffset": 750, "count": 2 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 792, "endOffset": 1175, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 1215, "endOffset": 1613, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 1667, "endOffset": 2190, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 2246, "endOffset": 3076, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 3123, "endOffset": 3781, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 3866, "endOffset": 4547, "count": 1 }],
+      "isBlockCoverage": true
+    }
+  ]
+}

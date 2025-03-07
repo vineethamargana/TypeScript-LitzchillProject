@@ -34,8 +34,6 @@ Deno.test('validate form data - missing tags' ,async() =>{
     console.log(responseBody);
     assertEquals(response.status, HTTP_STATUS_CODE.BAD_REQUEST);
     assertEquals(responseBody.message, MEME_ERROR_MESSAGES.MISSING_TAGS);
-
-
 })
 
 Deno.test('validate form data - missing meme-title' ,async() =>{

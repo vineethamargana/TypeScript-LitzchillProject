@@ -21,7 +21,7 @@ import Logger from "@shared/Logger/logger.ts";
  * 
  * @throws {Error} - If the meme is not found, the user has not liked the meme, or there is an issue removing the like or updating the like count.
  */
-export default async function unlikememes(_req: Request, params: Record<string, string>):Promise<Response> {
+export default async function unlikememes(_req: Request, params: Record<string, string>,CheckMemeExists=meme_exists, unlikememeQuery = unlikememe ):Promise<Response> {
          const logger = Logger.getInstance();
     try {
         const user_id = params.user_id;
@@ -35,14 +35,14 @@ export default async function unlikememes(_req: Request, params: Record<string, 
         }
         
         //Check if the meme exists in the database
-        const existingMeme = await meme_exists(meme_id);
+        const existingMeme = await CheckMemeExists(meme_id);
         if (!existingMeme) {
             logger.error("meme not found");
             return ErrorResponse(HTTP_STATUS_CODE.NOT_FOUND, MEME_ERROR_MESSAGES.MEME_NOT_FOUND);
         }
         
         // unlike the meme from the database
-        const unlikedmeme = await unlikememe(meme_id, user_id);
+        const unlikedmeme = await unlikememeQuery(meme_id, user_id);
         if (!unlikedmeme) {
             logger.error("failed to unlike meme");
             return ErrorResponse(HTTP_STATUS_CODE.INTERNAL_SERVER_ERROR, LIKE_ERROR.UNLIKE_FAILED);
