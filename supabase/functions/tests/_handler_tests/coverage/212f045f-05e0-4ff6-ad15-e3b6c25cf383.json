@@ -1,0 +1,23 @@
+{
+  "scriptId": "316",
+  "url": "file:///C:/Users/Vineetha/Documents/LitchillProject/LitzChill-Backend/supabase/functions/_handler/_notifications_module/markNotifications.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 2102, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "markNotification",
+      "ranges": [
+        { "startOffset": 860, "endOffset": 2101, "count": 5 },
+        { "startOffset": 1224, "endOffset": 1255, "count": 4 },
+        { "startOffset": 1257, "endOffset": 1421, "count": 2 },
+        { "startOffset": 1421, "endOffset": 1540, "count": 3 },
+        { "startOffset": 1540, "endOffset": 1632, "count": 2 },
+        { "startOffset": 1632, "endOffset": 2099, "count": 1 }
+      ],
+      "isBlockCoverage": true
+    }
+  ]
+}

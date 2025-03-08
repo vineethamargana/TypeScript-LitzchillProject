@@ -1,0 +1,45 @@
+{
+  "scriptId": "315",
+  "url": "file:///C:/Users/Vineetha/Documents/LitchillProject/LitzChill-Backend/supabase/functions/tests/_handler_tests/notifications_module/getNotification_test.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 3254, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "mockgetNotificationsQuery",
+      "ranges": [{ "startOffset": 422, "endOffset": 621, "count": 4 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [
+        { "startOffset": 478, "endOffset": 618, "count": 4 },
+        { "startOffset": 547, "endOffset": 593, "count": 1 },
+        { "startOffset": 593, "endOffset": 617, "count": 3 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 697, "endOffset": 1370, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 1441, "endOffset": 2017, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 2105, "endOffset": 2643, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 2711, "endOffset": 3251, "count": 1 }],
+      "isBlockCoverage": true
+    }
+  ]
+}

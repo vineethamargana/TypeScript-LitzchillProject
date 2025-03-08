@@ -11,7 +11,7 @@ import Logger from "@shared/Logger/logger.ts";
  * @param {Record<string, string>} params - The route parameters, including the user_id of the requesting user.
  * @returns {Promise<Response>} - A promise that resolves with the appropriate response object: success or error.
  */
-export default async function getNotifications(_req: Request, params: Record<string, string>): Promise<Response> {
+export default async function getNotifications(_req: Request, params: Record<string, string>, getNotifications=getNotificationsQuery): Promise<Response> {
     const logger = Logger.getInstance();
     try {
         const user_id = params.user_id;
@@ -19,7 +19,7 @@ export default async function getNotifications(_req: Request, params: Record<str
         // Fetch notifications for the user
 
 
-        const { data: notifications, error } = await getNotificationsQuery(user_id);
+        const { data: notifications, error } = await getNotifications(user_id);
 
         if (error) {
             logger.info("Fetching failed");
@@ -31,7 +31,7 @@ export default async function getNotifications(_req: Request, params: Record<str
             return ErrorResponse(HTTP_STATUS_CODE.OK, NOTIFICATION_SUCCESS.NO_NOTIFICATIONS);
         }
 
-        logger.info("Notifications fetched successfully.");
+        logger.info("Notifications fetched successfully."+JSON.stringify(notifications));
         return SuccessResponse(HTTP_STATUS_CODE.OK, NOTIFICATION_SUCCESS.NOTIFICATIONS_FETCHED, notifications);
     } catch (error) {
         logger.error("Error updating meme:"+ error);

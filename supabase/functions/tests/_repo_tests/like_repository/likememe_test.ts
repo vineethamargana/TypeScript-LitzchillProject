@@ -1,32 +1,29 @@
+// deno-lint-ignore-file
 import { assertEquals } from "https://deno.land/std@0.224.0/assert/assert_equals.ts";
-import sinon from "https://cdn.skypack.dev/sinon@14.0.0" assert { type: "json" };
-import { insertLikeQuery } from "../path/to/insertLikeQuery.ts";
+import { insertLikeQuery } from "@repository/_like_repo/LikeQueries.ts";
 
 // Mock Supabase client
-const supabaseMock = {
-    from: sinon.stub().returns({
-        upsert: sinon.stub(),
+function mockSupabaseResponse(data: any, error: any ) {
+  return {
+    from: () => ({
+      upsert: () => Promise.resolve({ data, error }),
     }),
-};
+  };
+}
 
-// ✅ Test case: Successful insert
-Deno.test("insertLikeQuery should return data on success", async () => {
-    const fakeData = { id: "like123" };
+Deno.test("insertLikeQuery should insert a like and return data when successful", async () => {
+  const mockData = { id: "1", meme_id: "123", user_id: "456", likeable_type: "meme" };
+  const mockquery = mockSupabaseResponse(mockData,null); 
+  const result = await insertLikeQuery("123", "456", "meme",mockquery as any);
+  console.log(result);
+  assertEquals(result.data, mockData);
 
-    // Mock upsert to return fake data
-    supabaseMock.from().upsert.resolves({ data: fakeData, error: null });
-
-    const result = await insertLikeQuery("meme123", "user123", "like");
-    assertEquals(result, { data: fakeData, error: null });
 });
 
-// ❌ Test case: Failure (Database Error)
-Deno.test("insertLikeQuery should return an error on failure", async () => {
-    const fakeError = { message: "Database failure" };
-
-    // Mock upsert to return an error
-    supabaseMock.from().upsert.resolves({ data: null, error: fakeError });
-
-    const result = await insertLikeQuery("meme123", "user123", "like");
-    assertEquals(result, { data: null, error: fakeError });
+Deno.test("insertLikeQuery should throw an error when insertion fails", async () => {
+  const mockError = new Error("Failed to insert like");
+  const mockquery = mockSupabaseResponse(null, mockError); 
+  const result = await insertLikeQuery("123", "456", "meme",mockquery as any);
+  
+  await assertEquals(result.error, mockError);
 });

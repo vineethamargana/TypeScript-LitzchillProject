@@ -1,0 +1,11 @@
+{
+  "scriptId": "332",
+  "url": "file:///C:/Users/Vineetha/Documents/LitchillProject/LitzChill-Backend/supabase/functions/_shared/_db_table_details/NotificationTableConstants.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 202, "count": 1 }],
+      "isBlockCoverage": true
+    }
+  ]
+}

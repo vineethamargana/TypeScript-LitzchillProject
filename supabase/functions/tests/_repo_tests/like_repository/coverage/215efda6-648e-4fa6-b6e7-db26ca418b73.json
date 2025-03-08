@@ -1,0 +1,24 @@
+{
+  "scriptId": "317",
+  "url": "file:///C:/Users/Vineetha/Documents/LitchillProject/LitzChill-Backend/supabase/functions/_repository/_like_repo/LikeQueries.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 3792, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "insertLikeQuery",
+      "ranges": [
+        { "startOffset": 1604, "endOffset": 2088, "count": 2 },
+        { "startOffset": 1989, "endOffset": 2087, "count": 1 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "unlikememe",
+      "ranges": [{ "startOffset": 2345, "endOffset": 2927, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "scriptId": "317",
+  "url": "file:///C:/Users/Vineetha/Documents/LitchillProject/LitzChill-Backend/supabase/functions/_handler/_notifications_module/GetNotifications.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 1950, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "getNotifications",
+      "ranges": [
+        { "startOffset": 860, "endOffset": 1949, "count": 4 },
+        { "startOffset": 1214, "endOffset": 1230, "count": 3 },
+        { "startOffset": 1230, "endOffset": 1370, "count": 1 },
+        { "startOffset": 1370, "endOffset": 1394, "count": 2 },
+        { "startOffset": 1394, "endOffset": 1423, "count": 1 },
+        { "startOffset": 1425, "endOffset": 1947, "count": 1 }
+      ],
+      "isBlockCoverage": true
+    }
+  ]
+}

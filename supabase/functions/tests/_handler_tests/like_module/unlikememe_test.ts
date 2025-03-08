@@ -1,4 +1,4 @@
-import likememe from "@handler/_likes_module/LikeMeme.ts";
+// deno-lint-ignore-file
 import { assertEquals } from "https://deno.land/std@0.224.0/assert/assert_equals.ts";
 import { HTTP_STATUS_CODE } from "@shared/_constants/HttpStatusCodes.ts";
 import { MEME_ERROR_MESSAGES, MEME_SUCCESS_MESSAGES } from "@shared/_messages/Meme_Module_Messages.ts";
@@ -13,12 +13,16 @@ function mockCheckMemeExists(response: string | null) {
     };
 }
 
-
-function mockLikeMeme(response: boolean) {
+function mockLikeMeme(response:boolean|String) {
     return async () => {
+        if (response === "Database connection failed") {
+            throw new Error(response.toString());   
+        }
         return response;
     };
 }
+
+
 
 Deno.test('testing missing meme_id', async () => {
     const req = new Request("http://localhost", { method: "POST" });
@@ -87,29 +91,20 @@ Deno.test('error message when like failed',async()=>{
     assertEquals(resultBody.message, LIKE_ERROR.UNLIKE_FAILED);
 })
 
-// Deno.test("likememe should return error response when database connection fails", async () => {
-//     const req = new Request("http://localhost", { method: "POST" });
-//     const params = { user_id: "088f3d23-6136-48ea-9ede-6f8d64f1e6ed", id: "088f3d23-6136-48ea-9ede-6f8d64f1e6ed" };
-    
-//     const mockCheckMemeExistsResponse = mockCheckMemeExists("test_meme");
-//     const mockLikeMemeResponse = mockLikeMeme({ data: null, error: "Database connection failed" });
-    
-//     const result = await unlikememes(req, params, mockCheckMemeExistsResponse, mockLikeMemeResponse);
-//     const resultBody = await result.json();
-    
-//     assertEquals(result.status, HTTP_STATUS_CODE.INTERNAL_SERVER_ERROR);
-//     assertEquals(resultBody.message, COMMON_ERROR_MESSAGES.INTERNAL_SERVER_ERROR);
-//     })
+Deno.test("UnlikeMeme - Handles unexpected errors in catch block", async () => {
+    const req = new Request("http://localhost", { method: "POST" });
+    const params = { user_id: "088f3d23-6136-48ea-9ede-6f8d64f1e6ed", id: "088f3d23-6136-48ea-9ede-6f8d64f1e6ed" };
 
-import * as Mockery from "https://deno.land/x/mockery/mod.ts";
-import { mock } from "node:test";
+    const mockCheckMemeExistsResponse = mockCheckMemeExists("test_meme");
 
-console.log(Mockery); // Check available exports
+    const mockLikeMemeResponse = mockLikeMeme("Database connection failed");
 
-Deno.test("unlikememes error handling", async () => {
-    const mockCheckMemeExists = mock.fn(async () => { throw new Error("DB error"); });
 
-    const response = await unlikememes(new Request("http://example.com"), { user_id: "123", id: "456" }, mockCheckMemeExists);
+    const result = await unlikememes(req, params, mockCheckMemeExistsResponse, mockLikeMemeResponse);
+    const resultBody = await result.json();
 
-    assertEquals(response.status, 500);
+    assertEquals(result.status, HTTP_STATUS_CODE.INTERNAL_SERVER_ERROR);
+    assertEquals(resultBody.message, COMMON_ERROR_MESSAGES.INTERNAL_SERVER_ERROR);
 });
+
+

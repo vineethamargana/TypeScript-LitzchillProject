@@ -1,3 +1,4 @@
+// deno-lint-ignore-file
 import supabase from "@shared/_config/DbConfig.ts";
 import { MEME_STATUS } from "@shared/_constants/Types.ts";
 import { NOTIFICATIONS_TABLE_FEILDS } from "@shared/_db_table_details/NotificationTableConstants.ts";
@@ -51,8 +52,8 @@ const logger = Logger.getInstance();
  * @param user_id - The unique identifier of the user.
  * @returns {{ data: object | null, error: object | null }} - The updated meme data or an error object.
  */
-export async function getNotificationsQuery(user_id: string){
-    const { data, error } = await supabase
+export async function getNotificationsQuery(user_id: string, SupabaseClient=supabase){
+    const { data, error } = await SupabaseClient
         .from(TABLE_NAMES.NOTIFICATIONS_TABLE)
         .select("*")
         .eq(NOTIFICATIONS_TABLE_FEILDS.USER_ID, user_id)
@@ -70,7 +71,7 @@ export async function getNotificationsQuery(user_id: string){
  * @param notification_id - The unique identifier of the notification.
  * @returns {Promise<boolean>} - Returns true if the notification was successfully marked as read, or false if there was an error.
  */
-export async function markNotificationsAsReadQuery(notification_id: string, user_id: string): Promise<boolean> {
+export async function markNotificationsAsReadQuery(notification_id: string, user_id: string): Promise<boolean|String> {
     const { data, error } = await supabase
         .from(TABLE_NAMES.NOTIFICATIONS_TABLE)
         .update({ read_status: true })

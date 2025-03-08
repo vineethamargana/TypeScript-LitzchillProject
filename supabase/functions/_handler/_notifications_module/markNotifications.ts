@@ -13,7 +13,7 @@ import Logger from "@shared/Logger/logger.ts";
  * @param {Record<string, string>} params - The parameters from the URL, including the notification ID.
  * @returns {Promise<Response>} A promise that resolves to a success or error response based on the operation.
  */
-export default async function markNotification(_req: Request, params: Record<string, string>): Promise<Response> {
+export default async function markNotification(_req: Request, params: Record<string, string>, markNotificationsAsRead = markNotificationsAsReadQuery): Promise<Response> {
     const logger = Logger.getInstance();
     try {
         const notification_id = params.id;
@@ -28,11 +28,11 @@ export default async function markNotification(_req: Request, params: Record<str
         }
 
         // Mark the notification as read
-        const isSuccessful = await markNotificationsAsReadQuery(notification_id,user_id);
+        const isSuccessful = await markNotificationsAsRead(notification_id,user_id);
         logger.info(`Marking result: ${JSON.stringify(isSuccessful)}`);
         if (!isSuccessful) {
             logger.info("Marking failed");
-            return ErrorResponse(HTTP_STATUS_CODE.BAD_REQUEST, NOTIFICATION_ERRORS.FAILED_TO_UPDATE);
+            return ErrorResponse(HTTP_STATUS_CODE.INTERNAL_SERVER_ERROR, NOTIFICATION_ERRORS.FAILED_TO_UPDATE);
         }
 
         // Return a success response

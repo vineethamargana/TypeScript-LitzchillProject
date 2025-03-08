@@ -1,0 +1,25 @@
+{
+  "scriptId": "321",
+  "url": "file:///C:/Users/Vineetha/Documents/LitchillProject/LitzChill-Backend/supabase/functions/_handler/_likes_module/UnlikeMeme.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 2656, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "unlikememes",
+      "ranges": [
+        { "startOffset": 1221, "endOffset": 2655, "count": 6 },
+        { "startOffset": 1592, "endOffset": 1615, "count": 5 },
+        { "startOffset": 1617, "endOffset": 1780, "count": 2 },
+        { "startOffset": 1780, "endOffset": 1908, "count": 4 },
+        { "startOffset": 1908, "endOffset": 2045, "count": 1 },
+        { "startOffset": 2045, "endOffset": 2151, "count": 3 },
+        { "startOffset": 2151, "endOffset": 2174, "count": 2 },
+        { "startOffset": 2174, "endOffset": 2653, "count": 1 }
+      ],
+      "isBlockCoverage": true
+    }
+  ]
+}
