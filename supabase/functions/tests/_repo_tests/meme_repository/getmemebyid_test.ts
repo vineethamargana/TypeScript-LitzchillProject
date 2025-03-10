@@ -3,6 +3,11 @@ import { getMemeByIdQuery } from "../../../_repository/_meme_repo/MemeRepository
 import { assertEquals } from "https://deno.land/std@0.224.0/assert/assert_equals.ts";
 import { TABLE_NAMES } from "@shared/_db_table_details/TableNames.ts";
 
+
+const memeId = "550e8400-e29b-41d4-a716-446655440000";
+const userId = "7d34c4c8-6c2b-11ee-b962-0242ac120002";
+const ownerId = "1a2b3c4d-5e6f-11ee-8c99-0242ac120002";
+
 function createMockSupabaseClient(mockData: Record<string, any>) {
     return {
         from: (table: string) => {
@@ -18,7 +23,7 @@ function createMockSupabaseClient(mockData: Record<string, any>) {
                                                 return mockData.meme || { data: null, error: { message: "Meme not found" } };
                                             },
                                         };
-                                    },
+                                    }, 
                                 };
                             },
                         };
@@ -63,10 +68,7 @@ function createMockSupabaseClient(mockData: Record<string, any>) {
         },
     };
 }
-
-const memeId = "550e8400-e29b-41d4-a716-446655440000";
-const userId = "7d34c4c8-6c2b-11ee-b962-0242ac120002";
-const ownerId = "1a2b3c4d-5e6f-11ee-8c99-0242ac120002";
+ 
 
 Deno.test("Should fetch meme successfully (public account)", async () => {
     const mockSupabaseClient = createMockSupabaseClient({
@@ -99,7 +101,7 @@ Deno.test("error when user preferences fetching fails", async () => {
     assertEquals(data, null);
     assertEquals(error, "User preferences fetching failed");
 });
-
+ 
 Deno.test("fail when account is private and user is not a follower", async () => {
     const mockSupabaseClient = createMockSupabaseClient({
         meme: { data: { meme_title: "Funny Meme", user_id: ownerId }, error: null },
@@ -116,7 +118,7 @@ Deno.test("Should fetch meme when account is private but user is a follower", as
     const mockSupabaseClient = createMockSupabaseClient({
         meme: { data: { meme_title: "Funny Meme", user_id: ownerId }, error: null },
         user: { data: { preferences: "Private" }, error: null },
-        follower: { data: [{ follower_id: userId }], error: null }, // User is a follower
+        follower: { data: [{ follower_id: userId }], error: null }, 
     });
 
     const { data, error } = await getMemeByIdQuery(memeId, userId, mockSupabaseClient as any);

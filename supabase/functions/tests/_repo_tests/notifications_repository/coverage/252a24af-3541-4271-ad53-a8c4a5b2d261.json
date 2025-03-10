@@ -1,0 +1,56 @@
+{
+  "scriptId": "315",
+  "url": "file:///C:/Users/Vineetha/Documents/LitchillProject/LitzChill-Backend/supabase/functions/tests/_repo_tests/notifications_repository/markNotification_test.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 1837, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "mockMarkNotificationQuery",
+      "ranges": [{ "startOffset": 215, "endOffset": 567, "count": 3 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "from",
+      "ranges": [{ "startOffset": 286, "endOffset": 560, "count": 3 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "update",
+      "ranges": [{ "startOffset": 309, "endOffset": 551, "count": 3 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "eq",
+      "ranges": [{ "startOffset": 332, "endOffset": 538, "count": 3 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "eq",
+      "ranges": [{ "startOffset": 359, "endOffset": 521, "count": 3 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "select",
+      "ranges": [{ "startOffset": 394, "endOffset": 500, "count": 3 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 645, "endOffset": 1049, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 1142, "endOffset": 1433, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 1510, "endOffset": 1834, "count": 1 }],
+      "isBlockCoverage": true
+    }
+  ]
+}

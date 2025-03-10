@@ -347,7 +347,8 @@ export async function updateMemeStatusQuery(
         .eq(MEMEFIELDS.USER_ID,user_id)
         .neq(MEMEFIELDS.MEME_STATUS,MEME_STATUS.DELETED)
         .select("meme_id, meme_status, meme_title")
-        .single();
+        .single(); 
 
     return { data, error };
 }
+

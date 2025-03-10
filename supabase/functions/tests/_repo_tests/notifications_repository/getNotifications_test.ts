@@ -1,8 +1,9 @@
+// deno-lint-ignore-file
 import { assertEquals } from "https://deno.land/std@0.224.0/assert/assert_equals.ts";
 import { getNotificationsQuery } from "@repository/_notifications_repo/NotificationsQueries.ts";
 
 
-function mockSupabaseResponse(data: object[], error: any) {
+function mockSupabaseResponse(data: any, error: any) {
     return {
         from: () => ({
             select: () => ({
@@ -21,11 +22,16 @@ Deno.test("getNotificationsQuery should return notifications when successful", a
     const mockquery = mockSupabaseResponse(mockData, null);
     const result = await getNotificationsQuery("123", mockquery as any);
     
-    console.log(result);
+    console.log("Result:", result);
     assertEquals(result.data, mockData);
 });
 
+Deno.test("getNotificationsQuery should return error when failed", async () => {
+    const mockError = { message: "Database connection failed" };
+    const mockquery = mockSupabaseResponse(null, mockError);
+    const result = await getNotificationsQuery("123", mockquery as any);
+    
+    console.log(result);
 
-  
-
-  
+    assertEquals(result.error, mockError);
+});

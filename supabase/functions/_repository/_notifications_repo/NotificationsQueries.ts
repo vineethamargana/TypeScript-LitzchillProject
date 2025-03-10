@@ -71,8 +71,8 @@ export async function getNotificationsQuery(user_id: string, SupabaseClient=supa
  * @param notification_id - The unique identifier of the notification.
  * @returns {Promise<boolean>} - Returns true if the notification was successfully marked as read, or false if there was an error.
  */
-export async function markNotificationsAsReadQuery(notification_id: string, user_id: string): Promise<boolean|String> {
-    const { data, error } = await supabase
+export async function markNotificationsAsReadQuery(notification_id: string, user_id: string, SupabaseClient=supabase): Promise<boolean|String> {
+    const { data, error } = await SupabaseClient
         .from(TABLE_NAMES.NOTIFICATIONS_TABLE)
         .update({ read_status: true })
         .eq(NOTIFICATIONS_TABLE_FEILDS.NOTIFICATION_ID, notification_id)

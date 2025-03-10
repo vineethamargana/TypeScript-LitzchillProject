@@ -1,0 +1,21 @@
+{
+  "scriptId": "317",
+  "url": "file:///C:/Users/Vineetha/Documents/LitchillProject/LitzChill-Backend/supabase/functions/_repository/_notifications_repo/NotificationsQueries.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 3478, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "getNotificationsQuery",
+      "ranges": [{ "startOffset": 2043, "endOffset": 2417, "count": 2 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "markNotificationsAsReadQuery",
+      "ranges": [{ "startOffset": 2687, "endOffset": 3477, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}
