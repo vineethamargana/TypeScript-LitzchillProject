@@ -26,7 +26,7 @@ import Logger from "@shared/Logger/logger.ts";
  * 
  * @throws {Error} Throws an error if there is an unexpected failure while fetching memes.
  */
-export default async function getAllMemes(req: Request, getAllMemes = MemeRepository.fetchMemes): Promise<Response> { 
+export default async function getAllMemes(req: Request,params:Record<string, string>, getAllMemes = MemeRepository.fetchMemes): Promise<Response> { 
      const logger = Logger.getInstance();  // Get the logger instance
     try {
         const url = new URL(req.url);
@@ -53,3 +53,4 @@ export default async function getAllMemes(req: Request, getAllMemes = MemeReposi
         return ErrorResponse(HTTP_STATUS_CODE.INTERNAL_SERVER_ERROR, COMMON_ERROR_MESSAGES.INTERNAL_SERVER_ERROR);
     }
 }
+

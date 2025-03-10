@@ -64,7 +64,7 @@ Deno.test("fetchMemes - successfully fetches memes sorted by created_at", async 
     const { data, error } = await fetchMemes(page, limit, sort, null, mockSupabaseClient as any);
     assertEquals(error, null);
     assertEquals(data?.length, 1);
-    });
+    }); 
 
 Deno.test("fetchMemes - returns an error when no memes are found", async () => {
     const mockSupabaseClient = createMockSupabaseClient({

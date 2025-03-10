@@ -1,0 +1,51 @@
+{
+  "scriptId": "315",
+  "url": "file:///C:/Users/Vineetha/Documents/LitchillProject/LitzChill-Backend/supabase/functions/tests/_repo_tests/meme_repository/checkmemeexists_test.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 1168, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "mockSupabaseResponse",
+      "ranges": [{ "startOffset": 183, "endOffset": 536, "count": 2 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "from",
+      "ranges": [{ "startOffset": 249, "endOffset": 529, "count": 2 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "select",
+      "ranges": [{ "startOffset": 272, "endOffset": 520, "count": 2 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "eq",
+      "ranges": [{ "startOffset": 295, "endOffset": 507, "count": 2 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "neq",
+      "ranges": [{ "startOffset": 323, "endOffset": 490, "count": 2 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "maybeSingle",
+      "ranges": [{ "startOffset": 363, "endOffset": 469, "count": 2 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 606, "endOffset": 882, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 937, "endOffset": 1165, "count": 1 }],
+      "isBlockCoverage": true
+    }
+  ]
+}

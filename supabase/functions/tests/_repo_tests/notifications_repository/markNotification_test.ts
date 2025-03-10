@@ -6,9 +6,9 @@ import { assertEquals } from "https://deno.land/std@0.224.0/assert/assert_equals
 
 function mockMarkNotificationQuery(data: any,error: any) {
     return {
-        from: () => ({
+        from: () => ({  
             update: () => ({
-                eq: () => ({
+                 eq: () => ({
                     eq: () => ({
                         select: () => Promise.resolve({ data, error }),
                     }),
@@ -41,3 +41,5 @@ Deno.test("should return false when failed to mark notification as read", async 
     const result = await markNotificationsAsReadQuery("550e8400-e29b-41d4-a716-446655440000", "550e8400-e29b-41d4-a716-446655440000", mockquery as any);
     assertEquals(result, false);
 });
+
+ 

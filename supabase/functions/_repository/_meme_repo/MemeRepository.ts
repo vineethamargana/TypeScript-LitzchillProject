@@ -9,14 +9,14 @@ import Logger from "@shared/Logger/logger.ts";
 
 const logger = Logger.getInstance();
 
-export async function meme_exists(meme_id: string) {
+export async function meme_exists(meme_id: string, supabaseClient = supabase) {
     // Check if meme exists and ensure it's not deleted
-    const { data: existingMeme, error: fetchError } = await supabase
+    const { data: existingMeme, error: fetchError } = await supabaseClient
         .from(TABLE_NAMES.MEME_TABLE)
         .select("*")
         .eq(MEMEFIELDS.MEME_ID, meme_id)
         .neq(MEMEFIELDS.MEME_STATUS,MEME_STATUS.DELETED)
-        .maybeSingle();  // Ensure only one row is returned
+        .maybeSingle();  // Ensure only one row is returned 
 
 
         logger.info(existingMeme+" "+fetchError);
