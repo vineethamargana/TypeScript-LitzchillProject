@@ -49,8 +49,11 @@ export async function uploadFileToBucket(mediaFile: File, memeTitle: string,supa
 
         // Construct file path
         const extension = mediaFile.name.split('.').pop()?.toLowerCase() || "";
+        logger.log(`File extension: ${extension}`);
         const sanitizedFileName = `${memeTitle.replace(/\s+/g, "_")}-${fileHash}.${extension}`;
+        logger.log(`Sanitized file name: ${sanitizedFileName}`);
         const filePath = `memes/${sanitizedFileName}`;
+        logger.log(`File path: ${filePath}`);
 
         // **Check if file already exists** before uploading
         const { data: existingFileUrl } = supabaseClient.storage.from(BUCKET_NAME.MEMES).getPublicUrl(filePath);

@@ -1,0 +1,61 @@
+{
+  "scriptId": "317",
+  "url": "file:///C:/Users/Vineetha/Documents/LitchillProject/LitzChill-Backend/supabase/functions/_repository/_meme_repo/MemeRepository.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 13260, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "meme_exists",
+      "ranges": [{ "startOffset": 448, "endOffset": 933, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "uploadFileToBucket",
+      "ranges": [{ "startOffset": 1267, "endOffset": 3438, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "generateFileHash",
+      "ranges": [{ "startOffset": 3493, "endOffset": 3761, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "createMemeQuery",
+      "ranges": [{ "startOffset": 4132, "endOffset": 4598, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "updatememeQuery",
+      "ranges": [{ "startOffset": 5221, "endOffset": 5895, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "deleteMemeQuery",
+      "ranges": [
+        { "startOffset": 7525, "endOffset": 8160, "count": 4 },
+        { "startOffset": 7698, "endOffset": 7739, "count": 3 },
+        { "startOffset": 7740, "endOffset": 7816, "count": 1 },
+        { "startOffset": 8066, "endOffset": 8122, "count": 2 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "fetchMemes",
+      "ranges": [{ "startOffset": 8819, "endOffset": 10299, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "getMemeByIdQuery",
+      "ranges": [{ "startOffset": 10526, "endOffset": 12552, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "updateMemeStatusQuery",
+      "ranges": [{ "startOffset": 12840, "endOffset": 13259, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

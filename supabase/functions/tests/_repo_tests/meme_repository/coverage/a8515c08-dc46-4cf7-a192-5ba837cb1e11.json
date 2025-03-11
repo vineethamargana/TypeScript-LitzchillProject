@@ -1,0 +1,70 @@
+{
+  "scriptId": "316",
+  "url": "file:///C:/Users/Vineetha/Documents/LitchillProject/LitzChill-Backend/supabase/functions/_repository/_meme_repo/MemeRepository.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 13260, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "meme_exists",
+      "ranges": [{ "startOffset": 448, "endOffset": 933, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "uploadFileToBucket",
+      "ranges": [{ "startOffset": 1267, "endOffset": 3438, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "generateFileHash",
+      "ranges": [{ "startOffset": 3493, "endOffset": 3761, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "createMemeQuery",
+      "ranges": [{ "startOffset": 4132, "endOffset": 4598, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "updatememeQuery",
+      "ranges": [{ "startOffset": 5221, "endOffset": 5895, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "deleteMemeQuery",
+      "ranges": [{ "startOffset": 7525, "endOffset": 8160, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "fetchMemes",
+      "ranges": [{ "startOffset": 8819, "endOffset": 10299, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "getMemeByIdQuery",
+      "ranges": [
+        { "startOffset": 10526, "endOffset": 12552, "count": 5 },
+        { "startOffset": 11072, "endOffset": 11084, "count": 4 },
+        { "startOffset": 11086, "endOffset": 11250, "count": 1 },
+        { "startOffset": 11157, "endOffset": 11175, "count": 0 },
+        { "startOffset": 11250, "endOffset": 11589, "count": 4 },
+        { "startOffset": 11589, "endOffset": 11601, "count": 3 },
+        { "startOffset": 11603, "endOffset": 11833, "count": 1 },
+        { "startOffset": 11712, "endOffset": 11730, "count": 0 },
+        { "startOffset": 11797, "endOffset": 11822, "count": 0 },
+        { "startOffset": 11833, "endOffset": 11980, "count": 3 },
+        { "startOffset": 11980, "endOffset": 12444, "count": 2 },
+        { "startOffset": 12228, "endOffset": 12440, "count": 1 },
+        { "startOffset": 12444, "endOffset": 12551, "count": 2 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "updateMemeStatusQuery",
+      "ranges": [{ "startOffset": 12840, "endOffset": 13259, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

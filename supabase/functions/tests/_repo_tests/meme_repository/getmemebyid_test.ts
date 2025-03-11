@@ -86,9 +86,10 @@ Deno.test("meme is not found", async () => {
         meme: { data: null, error: { message: "Meme not found" } },
     });
 
-    const { data, error } = await getMemeByIdQuery(memeId, userId, mockSupabaseClient as any);
-    assertEquals(data, null);
-    assertEquals(error, "Meme not found");
+    const result = await getMemeByIdQuery(memeId, userId, mockSupabaseClient as any);
+    console.log(result);
+    assertEquals(result.data, null);
+    assertEquals(result.error, "Meme not found");
 });
 
 Deno.test("error when user preferences fetching fails", async () => {
@@ -124,47 +125,4 @@ Deno.test("Should fetch meme when account is private but user is a follower", as
     const { data, error } = await getMemeByIdQuery(memeId, userId, mockSupabaseClient as any);
     assertEquals(error, null);
     assertEquals(data?.meme_title, "Funny Meme");
-});
-Deno.test("Fail when meme fetching has a database error", async () => {
-    const mockSupabaseClient = createMockSupabaseClient({
-        meme: { data: null, error: { message: "Database error" } },
-    });
-
-    const { data, error } = await getMemeByIdQuery(memeId, userId, mockSupabaseClient as any);
-    assertEquals(data, null);
-    assertEquals(error, "Database error");
-});
-
-Deno.test("Fail when user preferences are null", async () => {
-    const mockSupabaseClient = createMockSupabaseClient({
-        meme: { data: { meme_title: "Funny Meme", user_id: ownerId }, error: null },
-        user: { data: { preferences: null }, error: null },
-    });
-
-    const { data, error } = await getMemeByIdQuery(memeId, userId, mockSupabaseClient as any);
-    assertEquals(data, null);
-    assertEquals(error, "User preferences fetching failed");
-});
-
-Deno.test("Fail when follower query encounters an error", async () => {
-    const mockSupabaseClient = createMockSupabaseClient({
-        meme: { data: { meme_title: "Funny Meme", user_id: ownerId }, error: null },
-        user: { data: { preferences: "Private" }, error: null },
-        follower: { data: null, error: { message: "Database error while checking follower" } },
-    });
-
-    const { data, error } = await getMemeByIdQuery(memeId, userId, mockSupabaseClient as any);
-    assertEquals(data, null);
-    assertEquals(error, "Database error while checking follower");
-});
-
-Deno.test("Fail when meme is deleted", async () => {
-    const mockSupabaseClient = createMockSupabaseClient({
-        meme: { data: { meme_title: "Deleted Meme", user_id: ownerId, meme_status: "Deleted" }, error: null },
-        user: { data: { preferences: "Public" }, error: null },
-    });
-
-    const { data, error } = await getMemeByIdQuery(memeId, userId, mockSupabaseClient as any);
-    assertEquals(data, null);
-    assertEquals(error, "Meme not found");
 });

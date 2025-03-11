@@ -1,0 +1,76 @@
+{
+  "scriptId": "317",
+  "url": "file:///C:/Users/Vineetha/Documents/LitchillProject/LitzChill-Backend/supabase/functions/_repository/_meme_repo/MemeRepository.ts",
+  "functions": [
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 0, "endOffset": 13260, "count": 1 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "meme_exists",
+      "ranges": [{ "startOffset": 448, "endOffset": 933, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "uploadFileToBucket",
+      "ranges": [
+        { "startOffset": 1267, "endOffset": 3438, "count": 6 },
+        { "startOffset": 1595, "endOffset": 1701, "count": 1 },
+        { "startOffset": 1701, "endOffset": 1946, "count": 5 },
+        { "startOffset": 1949, "endOffset": 1954, "count": 0 },
+        { "startOffset": 2439, "endOffset": 2450, "count": 1 },
+        { "startOffset": 2452, "endOffset": 2572, "count": 1 },
+        { "startOffset": 2572, "endOffset": 2918, "count": 3 },
+        { "startOffset": 2918, "endOffset": 2932, "count": 2 },
+        { "startOffset": 2934, "endOffset": 3036, "count": 1 },
+        { "startOffset": 3036, "endOffset": 3276, "count": 2 },
+        { "startOffset": 3276, "endOffset": 3287, "count": 0 },
+        { "startOffset": 3316, "endOffset": 3327, "count": 0 },
+        { "startOffset": 3328, "endOffset": 3335, "count": 2 },
+        { "startOffset": 3341, "endOffset": 3436, "count": 1 }
+      ],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "generateFileHash",
+      "ranges": [{ "startOffset": 3493, "endOffset": 3761, "count": 5 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "",
+      "ranges": [{ "startOffset": 3706, "endOffset": 3748, "count": 160 }],
+      "isBlockCoverage": true
+    },
+    {
+      "functionName": "createMemeQuery",
+      "ranges": [{ "startOffset": 4132, "endOffset": 4598, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "updatememeQuery",
+      "ranges": [{ "startOffset": 5221, "endOffset": 5895, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "deleteMemeQuery",
+      "ranges": [{ "startOffset": 7525, "endOffset": 8160, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "fetchMemes",
+      "ranges": [{ "startOffset": 8819, "endOffset": 10299, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "getMemeByIdQuery",
+      "ranges": [{ "startOffset": 10526, "endOffset": 12552, "count": 0 }],
+      "isBlockCoverage": false
+    },
+    {
+      "functionName": "updateMemeStatusQuery",
+      "ranges": [{ "startOffset": 12840, "endOffset": 13259, "count": 0 }],
+      "isBlockCoverage": false
+    }
+  ]
+}

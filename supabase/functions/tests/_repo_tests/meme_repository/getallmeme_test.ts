@@ -3,7 +3,6 @@ import { assertEquals } from "https://deno.land/std@0.224.0/assert/assert_equals
 import { TABLE_NAMES } from "@shared/_db_table_details/TableNames.ts";
 import { fetchMemes } from "@repository/_meme_repo/MemeRepository.ts";
 
-// Reusable mock Supabase client function
 function createMockSupabaseClient(mockData: Record<string, any>) {
     return {
         from: (table: string) => ({
@@ -37,12 +36,10 @@ function createMockSupabaseClient(mockData: Record<string, any>) {
 }
 
 
-// Constants for test cases
 const page = 1;
 const limit = 5;
 const sort = "popular";
 
-// Test Cases
 
 Deno.test("fetchMemes - successfully fetches memes sorted by like_count", async () => {
     const mockSupabaseClient = createMockSupabaseClient({
@@ -53,7 +50,6 @@ Deno.test("fetchMemes - successfully fetches memes sorted by like_count", async 
     const { data, error } = await fetchMemes(page, limit, sort, null, mockSupabaseClient as any);
     assertEquals(error, null);
     assertEquals(data?.length, 1);
-  //  assertEquals(data?.[].meme_title, "Meme1");
 }); 
 
 Deno.test("fetchMemes - successfully fetches memes sorted by created_at", async () => {
