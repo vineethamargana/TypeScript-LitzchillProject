@@ -2,19 +2,19 @@
 import { ErrorResponse } from "@response/Response.ts";
 import { HTTP_STATUS_CODE } from "@shared/_constants/HttpStatusCodes.ts";
 import Logger from "@shared/Logger/logger.ts";
-import { CustomError } from "@shared/ExceptionHandling/CustomError.ts";
+import { CustomException } from "./CustomException.ts";
 
 const logger = Logger.getInstance();
 
 
-class ErrorHandler {
+export default class GlobalExceptionHandler {
    
     static handle<T extends (...args: any[]) => Promise<Response>>(handler: T): T {
         return (async (...args: Parameters<T>): Promise<Response> => {
             try {
                 return await handler(...args);
             } catch (error) {
-                if (error instanceof CustomError) {
+                if (error instanceof CustomException) {
                     return ErrorResponse(error.statusCode, error.message);
                 } else {
                     logger.error(`Unhandled error: ${error}`);
@@ -28,4 +28,4 @@ class ErrorHandler {
     }
 }
 
-export default ErrorHandler;
+
