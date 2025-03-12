@@ -25,7 +25,7 @@
     {
       "functionName": "getCallerLocation",
       "ranges": [
-        { "startOffset": 274, "endOffset": 543, "count": 2 },
+        { "startOffset": 274, "endOffset": 543, "count": 3 },
         { "startOffset": 456, "endOffset": 476, "count": 0 },
         { "startOffset": 508, "endOffset": 542, "count": 0 }
       ],
@@ -43,7 +43,7 @@
     },
     {
       "functionName": "error",
-      "ranges": [{ "startOffset": 875, "endOffset": 1041, "count": 2 }],
+      "ranges": [{ "startOffset": 875, "endOffset": 1041, "count": 3 }],
       "isBlockCoverage": true
     },
     {

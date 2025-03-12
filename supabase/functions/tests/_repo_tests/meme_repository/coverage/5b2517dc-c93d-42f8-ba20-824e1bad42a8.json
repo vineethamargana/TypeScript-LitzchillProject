@@ -40,18 +40,21 @@
     {
       "functionName": "fetchMemes",
       "ranges": [
-        { "startOffset": 8819, "endOffset": 10299, "count": 6 },
-        { "startOffset": 9126, "endOffset": 9278, "count": 0 },
+        { "startOffset": 8819, "endOffset": 10299, "count": 9 },
+        { "startOffset": 9109, "endOffset": 9124, "count": 8 },
+        { "startOffset": 9126, "endOffset": 9278, "count": 1 },
+        { "startOffset": 9278, "endOffset": 9730, "count": 8 },
         { "startOffset": 9731, "endOffset": 9745, "count": 0 },
         { "startOffset": 9820, "endOffset": 9948, "count": 0 },
+        { "startOffset": 9948, "endOffset": 10088, "count": 8 },
         { "startOffset": 10088, "endOffset": 10203, "count": 2 },
-        { "startOffset": 10203, "endOffset": 10298, "count": 4 }
+        { "startOffset": 10203, "endOffset": 10298, "count": 6 }
       ],
       "isBlockCoverage": true
     },
     {
       "functionName": "",
-      "ranges": [{ "startOffset": 9372, "endOffset": 9456, "count": 4 }],
+      "ranges": [{ "startOffset": 9372, "endOffset": 9456, "count": 5 }],
       "isBlockCoverage": true
     },
     {

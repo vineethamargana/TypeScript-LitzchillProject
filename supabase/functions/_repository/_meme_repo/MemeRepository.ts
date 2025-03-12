@@ -227,6 +227,7 @@ export async function deleteMemeQuery( meme_id: string, user_id: string, user_ty
 export async function fetchMemes(page: number,limit: number,sort: string,tags: string | null,supabaseClient = supabase): 
                                 Promise<{ data: object[] | null, error: object | null }> {
     // Subquery to fetch public users
+    console.log("Subquery to fetch public users")
     const { data: publicUsers, error: publicUsersError } = await supabaseClient
         .from("users")
         .select("user_id,preferences")
@@ -242,6 +243,7 @@ export async function fetchMemes(page: number,limit: number,sort: string,tags: s
                                                  return user.user_id; // For each user, return their user_id
                                           });
     // Base query to fetch memes
+    console.log("Query to fetch memes ")
     let query = supabaseClient
         .from("memes")
         .select("meme_id, user_id, meme_title, image_url, like_count, tags, created_at")
@@ -250,11 +252,13 @@ export async function fetchMemes(page: number,limit: number,sort: string,tags: s
         .order(sort === "popular" ? "like_count" : "created_at", { ascending: false }) 
 
     // Filter by tags if provided
+    console.log("Filter by tags")
     if (tags) {
         const tagArray = tags.split(",").map(tag => tag.trim()); 
         query = query.contains("tags", JSON.stringify(tagArray)); 
     }
     // Paginate the results
+    console.log("pagination")
     query = query.range((page - 1) * limit, page * limit - 1); 
 
 

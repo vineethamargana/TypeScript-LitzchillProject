@@ -4,7 +4,7 @@
   "functions": [
     {
       "functionName": "",
-      "ranges": [{ "startOffset": 0, "endOffset": 7275, "count": 1 }],
+      "ranges": [{ "startOffset": 0, "endOffset": 5176, "count": 1 }],
       "isBlockCoverage": true
     },
     {
