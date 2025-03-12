@@ -3,6 +3,7 @@ import { ErrorResponse } from "@response/Response.ts";
 import { HTTP_STATUS_CODE } from "@shared/_constants/HttpStatusCodes.ts";
 import Logger from "@shared/Logger/logger.ts";
 import { CustomException } from "./CustomException.ts";
+import { COMMON_ERROR_MESSAGES } from "@shared/_messages/ErrorMessages.ts";
 
 const logger = Logger.getInstance();
 
@@ -20,7 +21,7 @@ export default class GlobalExceptionHandler {
                     logger.error(`Unhandled error: ${error}`);
                     return ErrorResponse(
                         HTTP_STATUS_CODE.INTERNAL_SERVER_ERROR,
-                        "Something went wrong. Please try again later."
+                        COMMON_ERROR_MESSAGES.INTERNAL_SERVER_ERROR
                     );
                 }
             }

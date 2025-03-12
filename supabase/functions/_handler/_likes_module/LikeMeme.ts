@@ -6,12 +6,12 @@ import { meme_exists } from "@repository/_meme_repo/MemeRepository.ts";
 import { MEME_ERROR_MESSAGES } from "@shared/_messages/Meme_Module_Messages.ts";
 import { V4 } from "@V4";
 import Logger from "@shared/Logger/logger.ts";
-import ErrorHandler from "../../_shared/ExceptionHandling/GlobalExceptionHandler.ts";
 import { CustomException } from "../../_shared/ExceptionHandling/CustomException.ts";
+import GlobalExceptionHandler from "@shared/ExceptionHandling/GlobalExceptionHandler.ts";
 
 const logger = Logger.getInstance();
 
-async function likememe(_req: Request, params: Record<string, string>,CheckMemeExists = meme_exists, likememeQuery = insertLikeQuery) {
+export async function likememe(_req: Request, params: Record<string, string>,CheckMemeExists = meme_exists, likememeQuery = insertLikeQuery) {
     const user_id = params.user_id;
     const meme_id = params.id;
 
@@ -43,4 +43,4 @@ async function likememe(_req: Request, params: Record<string, string>,CheckMemeE
 }
 
 // Wrap function with global error handler
-export default ErrorHandler.handle(likememe);
+export default GlobalExceptionHandler.handle(likememe);

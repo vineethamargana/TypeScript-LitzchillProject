@@ -15,7 +15,7 @@ export default class Logger {
         const stack = new Error().stack;
         if (stack) {
             const stackLines = stack.split("\n");
-            const callerInfo = stackLines[2] ? stackLines[2].trim() : "Unknown location";
+            const callerInfo = stackLines[3] ? stackLines[3].trim() : "Unknown location";
             return callerInfo;
         }
         return "Unknown location";
