@@ -11,6 +11,24 @@ import GlobalExceptionHandler from "@shared/ExceptionHandling/GlobalExceptionHan
 
 const logger = Logger.getInstance();
 
+/**
+ * Handles the process of liking a meme by a user, including validation, insertion, and updating the like count.
+ * 
+ * @param {Request} _req - The HTTP request object, which contains the user ID and meme ID in the parameters.
+ * @param {Record<string, string>} params - The URL parameters containing the user ID and meme ID.
+ * @param {function} [CheckMemeExists=meme_exists] - The function to call to check if a meme exists in the database.
+ * @param {function} [likememeQuery=insertLikeQuery] - The function to call to insert a like into the database.
+ * 
+ * @returns {Promise<Response>} - The response object, indicating success or failure of the like operation.
+ * 
+ * @throws {Error} - If an error occurs during any of the following:
+ *   - Invalid or missing meme ID.
+ *   - Meme not found.
+ *   - User has already liked the meme.
+ *   - Failure to insert like or update like count.
+ *   - Failure to notify the meme owner.
+ */
+
 async function likememe(_req: Request, params: Record<string, string>,CheckMemeExists = meme_exists, likememeQuery = insertLikeQuery) {
     const user_id = params.user_id;
     const meme_id = params.id;
@@ -43,3 +61,5 @@ async function likememe(_req: Request, params: Record<string, string>,CheckMemeE
 }
 
 export default GlobalExceptionHandler.handle(likememe);
+
+
