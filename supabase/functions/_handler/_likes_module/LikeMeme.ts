@@ -11,7 +11,7 @@ import GlobalExceptionHandler from "@shared/ExceptionHandling/GlobalExceptionHan
 
 const logger = Logger.getInstance();
 
-export async function likememe(_req: Request, params: Record<string, string>,CheckMemeExists = meme_exists, likememeQuery = insertLikeQuery) {
+async function likememe(_req: Request, params: Record<string, string>,CheckMemeExists = meme_exists, likememeQuery = insertLikeQuery) {
     const user_id = params.user_id;
     const meme_id = params.id;
 
@@ -42,5 +42,4 @@ export async function likememe(_req: Request, params: Record<string, string>,Che
     return SuccessResponse(HTTP_STATUS_CODE.OK, LIKE_SUCCESS.LIKED_SUCCESSFULLY);
 }
 
-// Wrap function with global error handler
 export default GlobalExceptionHandler.handle(likememe);

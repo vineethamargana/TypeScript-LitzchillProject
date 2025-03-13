@@ -68,13 +68,16 @@ export async function unlikememe(meme_id: string, user_id: string, supabaseClien
       .from(TABLE_NAMES.LIKES_TABLE)
       .delete()
       .eq(LIKE_TABLE_FIELDS.USER_ID, user_id)
-      .eq(LIKE_TABLE_FIELDS.MEME_ID, meme_id);
+      .eq(LIKE_TABLE_FIELDS.MEME_ID, meme_id)
+      .select('*'); 
+
+      logger.info(`${data} ${error}`);
 
     if (error) {
       logger.error(`Error while unliking meme with ID ${meme_id} by user ${user_id}:`);
       return false;
     }
-    else if (!data) {
+    if (!data || data.length === 0){
       logger.error(`No likes found for meme with ID ${meme_id} by user ${user_id}`);
       return false;
     }

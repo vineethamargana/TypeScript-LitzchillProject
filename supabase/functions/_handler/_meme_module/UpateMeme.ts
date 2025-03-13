@@ -1,13 +1,14 @@
 import { HTTP_STATUS_CODE } from "@shared/_constants/HttpStatusCodes.ts";
-import { COMMON_ERROR_MESSAGES } from "@shared/_messages/ErrorMessages.ts";
 import { parseTags, validateMemeData } from "@shared/_validation/Meme_Validations.ts";
 import { MEMEFIELDS } from '@shared/_db_table_details/MemeTableFields.ts';
 import { updatememeQuery } from "@repository/_meme_repo/MemeRepository.ts";
 import { Meme } from '@model/MemeModel.ts';
 import { V4 } from "@V4";
-import { ErrorResponse, SuccessResponse } from "@response/Response.ts";
+import { SuccessResponse } from "@response/Response.ts";
 import { MEME_ERROR_MESSAGES, MEME_SUCCESS_MESSAGES } from "@shared/_messages/Meme_Module_Messages.ts";
 import Logger from "@shared/Logger/logger.ts";
+import { CustomException } from "@shared/ExceptionHandling/CustomException.ts";
+import GlobalExceptionHandler from "@shared/ExceptionHandling/GlobalExceptionHandler.ts";
 
 /**
  * Handles the update of a meme's details, including validation, data extraction, and database update.
@@ -22,9 +23,8 @@ import Logger from "@shared/Logger/logger.ts";
  *   - Validation failures for the meme data.
  *   - Failure to update the meme in the database.
  */
-export default async function updateMeme(req: Request,params:Record<string,string>,updateMemeQueryFn = updatememeQuery ): Promise<Response> {
+ async function updateMeme(req: Request,params:Record<string,string>,updateMemeQueryFn = updatememeQuery ): Promise<Response> {
     const logger = Logger.getInstance();
-    try {
         const meme_id = params.id;
         const user_id = params.user_id;
         const user_type = params.user_type;
@@ -35,7 +35,7 @@ export default async function updateMeme(req: Request,params:Record<string,strin
         // Validate the meme_id parameter
         if (!meme_id || !V4.isValid(meme_id)) { 
             logger.info("Validation failed: Missing parameters."+meme_id);
-            return  ErrorResponse(HTTP_STATUS_CODE.BAD_REQUEST,MEME_ERROR_MESSAGES.MISSING_MEMEID);
+            throw new CustomException(HTTP_STATUS_CODE.BAD_REQUEST,MEME_ERROR_MESSAGES.MISSING_MEMEID);
         }
 
   
@@ -62,13 +62,8 @@ export default async function updateMeme(req: Request,params:Record<string,strin
         if(error || !updatememe)
         {
             logger.info(`Update failed ${JSON.stringify(error)}`);
-            return await ErrorResponse(HTTP_STATUS_CODE.NOT_FOUND, MEME_ERROR_MESSAGES.FAILED_TO_UPDATE);
+            throw new CustomException(HTTP_STATUS_CODE.NOT_FOUND, MEME_ERROR_MESSAGES.FAILED_TO_UPDATE);
         }
         return await SuccessResponse(HTTP_STATUS_CODE.OK,MEME_SUCCESS_MESSAGES.MEME_UPDATED_SUCCESSFULLY,updatememe);
-
-
-    } catch (error) {
-        logger.error(`Error updating meme:${JSON.stringify(error)}`);
-        return await ErrorResponse(HTTP_STATUS_CODE.INTERNAL_SERVER_ERROR, COMMON_ERROR_MESSAGES.INTERNAL_SERVER_ERROR);
-    }
 }
+export default GlobalExceptionHandler.handle(updateMeme);

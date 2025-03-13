@@ -1,9 +1,11 @@
+// deno-lint-ignore-file
 import * as MemeRepository from "@repository/_meme_repo/MemeRepository.ts";
-import { ErrorResponse, SuccessResponse } from "@response/Response.ts";
+import { SuccessResponse } from "@response/Response.ts";
 import { HTTP_STATUS_CODE } from "@shared/_constants/HttpStatusCodes.ts";
-import { COMMON_ERROR_MESSAGES } from "@shared/_messages/ErrorMessages.ts";
 import { MEME_ERROR_MESSAGES, MEME_SUCCESS_MESSAGES } from "@shared/_messages/Meme_Module_Messages.ts";
 import Logger from "@shared/Logger/logger.ts";
+import { CustomException } from "@shared/ExceptionHandling/CustomException.ts";
+import GlobalExceptionHandler from "@shared/ExceptionHandling/GlobalExceptionHandler.ts";
 
 
 /**
@@ -26,9 +28,8 @@ import Logger from "@shared/Logger/logger.ts";
  * 
  * @throws {Error} Throws an error if there is an unexpected failure while fetching memes.
  */
-export default async function getAllMemes(req: Request,params:Record<string, string>, getAllMemes = MemeRepository.fetchMemes): Promise<Response> { 
+ async function getAllMemes(req: Request,params:Record<string, string>, getAllMemes = MemeRepository.fetchMemes): Promise<Response> { 
      const logger = Logger.getInstance();  // Get the logger instance
-    try {
         const url = new URL(req.url);
         const page = Number(url.searchParams.get('page')) || 1;
         const limit = Number(url.searchParams.get('limit')) || 50;
@@ -43,14 +44,12 @@ export default async function getAllMemes(req: Request,params:Record<string, str
         // Handle errors and return appropriate responses
         if (error || !allmemes || allmemes.length === 0) {
             logger.warn(`No memes found or fetching failed ${error}`);
-            return ErrorResponse(HTTP_STATUS_CODE.NOT_FOUND, MEME_ERROR_MESSAGES.NO_MEMES);
+            throw new CustomException(HTTP_STATUS_CODE.NOT_FOUND, MEME_ERROR_MESSAGES.NO_MEMES);
         }
 
         logger.info(`Successfully fetched ${allmemes.length} memes.`);
         return SuccessResponse(HTTP_STATUS_CODE.OK, MEME_SUCCESS_MESSAGES.MEMES_FETCHED_SUCCESSFULLY, allmemes);
-    } catch (error) {
-        logger.error(`Error occurred while fetching memes: ${error}`);
-        return ErrorResponse(HTTP_STATUS_CODE.INTERNAL_SERVER_ERROR, COMMON_ERROR_MESSAGES.INTERNAL_SERVER_ERROR);
-    }
 }
+
+export default GlobalExceptionHandler.handle(getAllMemes)
 

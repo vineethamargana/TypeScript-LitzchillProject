@@ -1,10 +1,11 @@
 import * as MemeRepository from "@repository/_meme_repo/MemeRepository.ts";
 import { HTTP_STATUS_CODE } from "@shared/_constants/HttpStatusCodes.ts";
-import { COMMON_ERROR_MESSAGES } from "@shared/_messages/ErrorMessages.ts";
 import { V4 } from "@V4";
 import { MEME_ERROR_MESSAGES, MEME_SUCCESS_MESSAGES } from "@shared/_messages/Meme_Module_Messages.ts";
-import { ErrorResponse, SuccessResponse } from "@response/Response.ts";
+import { SuccessResponse } from "@response/Response.ts";
 import Logger from "@shared/Logger/logger.ts";
+import { CustomException } from "@shared/ExceptionHandling/CustomException.ts";
+import GlobalExceptionHandler from "@shared/ExceptionHandling/GlobalExceptionHandler.ts";
 /**
  * Handler function to fetch a meme by its ID.
  * 
@@ -23,9 +24,8 @@ import Logger from "@shared/Logger/logger.ts";
  * 
  * @throws {Error} Throws an error if there is an unexpected failure while fetching the meme.
  */
-export default async function getmemebyID(_req: Request, params: Record<string, string>,getMemeByIdQuery = MemeRepository.getMemeByIdQuery): Promise<Response> {
-    const logger = Logger.getInstance();  // Get the logger instance
-    try {  
+async function getmemebyID(_req: Request, params: Record<string, string>,getMemeByIdQuery = MemeRepository.getMemeByIdQuery): Promise<Response> {
+    const logger = Logger.getInstance();  // Get the logger instance 
         logger.info("Processing getMemebyID handler");
         const meme_id = params.id;
         const user_id = params.user_id;
@@ -34,7 +34,7 @@ export default async function getmemebyID(_req: Request, params: Record<string, 
         // Validate the meme_id
         if (!meme_id || !V4.isValid(meme_id)) { 
             logger.info("Validation failed: Missing or invalid meme ID " + meme_id);
-            return ErrorResponse(HTTP_STATUS_CODE.BAD_REQUEST, MEME_ERROR_MESSAGES.MISSING_MEMEID);
+            throw new CustomException(HTTP_STATUS_CODE.BAD_REQUEST, MEME_ERROR_MESSAGES.MISSING_MEMEID);
         }
 
         // Fetch the meme by ID from the repository
@@ -44,16 +44,12 @@ export default async function getmemebyID(_req: Request, params: Record<string, 
         // Handle errors or empty results
         if (error) {
             logger.error(`Error in getMemesByIdQuery: ${JSON.stringify(error)}`);
-            return ErrorResponse(HTTP_STATUS_CODE.NOT_FOUND, error);
+            throw new CustomException(HTTP_STATUS_CODE.NOT_FOUND, error);
         }
         // Successfully fetched meme
         logger.log("Meme fetched successfully:"+ JSON.stringify(fetchMeme));
 
         // Return the fetched meme
         return SuccessResponse(HTTP_STATUS_CODE.OK, MEME_SUCCESS_MESSAGES.MEME_FETCHED_SUCCESSFULLY, fetchMeme);
-        
-    } catch (error) {
-        logger.error("Error fetching meme:"+  error);
-        return ErrorResponse(HTTP_STATUS_CODE.INTERNAL_SERVER_ERROR, COMMON_ERROR_MESSAGES.INTERNAL_SERVER_ERROR);
-    }
 }
+export default GlobalExceptionHandler.handle(getmemebyID);

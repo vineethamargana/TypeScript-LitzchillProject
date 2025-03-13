@@ -16,7 +16,7 @@ export async function meme_exists(meme_id: string, supabaseClient = supabase) {
         .select("*")
         .eq(MEMEFIELDS.MEME_ID, meme_id)
         .neq(MEMEFIELDS.MEME_STATUS,MEME_STATUS.DELETED)
-        .maybeSingle();  // Ensure only one row is returned 
+        .maybeSingle(); 
 
 
         logger.info(existingMeme+" "+fetchError);
@@ -26,6 +26,7 @@ export async function meme_exists(meme_id: string, supabaseClient = supabase) {
     return existingMeme;
 }
 
+
 /**
  * Uploads a file (image or video) to the specified bucket.
  * 
@@ -33,7 +34,7 @@ export async function meme_exists(meme_id: string, supabaseClient = supabase) {
  * @param {string} memeTitle - The title of the meme associated with the file.
  * @returns {Promise<string | null>} - The public URL of the uploaded file, if successful; otherwise, null.
  */
-export async function uploadFileToBucket(mediaFile: File, memeTitle: string,supabaseClient=supabase): Promise<string | null> {
+export async function uploadFileToBucket(mediaFile: File, memeTitle: string, supabaseClient = supabase): Promise<string | null> {
     logger.log("Uploading media file");
 
     try {
@@ -43,33 +44,18 @@ export async function uploadFileToBucket(mediaFile: File, memeTitle: string,supa
             return null;
         }
 
-        // Generate a hash of the file content
-        const fileHash = await generateFileHash(mediaFile);
-        logger.log(`Generated file hash: ${fileHash}`);
-
-        // Construct file path
+        // Construct file path using the original filename
         const extension = mediaFile.name.split('.').pop()?.toLowerCase() || "";
-        logger.log(`File extension: ${extension}`);
-        const sanitizedFileName = `${memeTitle.replace(/\s+/g, "_")}-${fileHash}.${extension}`;
-        logger.log(`Sanitized file name: ${sanitizedFileName}`);
+        const sanitizedFileName = `${memeTitle.replace(/\s+/g, "_")}-${Date.now()}.${extension}`;
         const filePath = `memes/${sanitizedFileName}`;
-        logger.log(`File path: ${filePath}`);
-
-        // **Check if file already exists** before uploading
-        const { data: existingFileUrl } = supabaseClient.storage.from(BUCKET_NAME.MEMES).getPublicUrl(filePath);
-
-        if (existingFileUrl?.publicUrl) {
-            logger.log("File already exists. Returning existing public URL.");
-            return existingFileUrl.publicUrl;
-        }
 
         // Upload new file
-        logger.log("File not found in the bucket. Proceeding with upload...");
+        logger.log("Uploading file...");
         const { data: uploadData, error: uploadError } = await supabaseClient.storage
             .from(BUCKET_NAME.MEMES)
             .upload(filePath, mediaFile, {
                 cacheControl: "3600",
-                upsert: false,  // Don't overwrite existing files
+                upsert: false, 
                 contentType: mediaFile.type,
             });
 
@@ -80,9 +66,8 @@ export async function uploadFileToBucket(mediaFile: File, memeTitle: string,supa
 
         logger.log("File uploaded successfully.");
 
-        // Return public URL of uploaded file
+        // Get the public URL of the uploaded file
         const { data: publicUrlData } = supabaseClient.storage.from(BUCKET_NAME.MEMES).getPublicUrl(filePath);
-        logger.log(`Public URL: ${publicUrlData?.publicUrl}`);
         return publicUrlData?.publicUrl || null;
 
     } catch (error) {
@@ -90,14 +75,6 @@ export async function uploadFileToBucket(mediaFile: File, memeTitle: string,supa
         return null;
     }
 }
-
-// Helper function to generate SHA-256 hash of a file
-async function generateFileHash(file: File): Promise<string> {
-    const arrayBuffer = await file.arrayBuffer();
-    const hashBuffer = await crypto.subtle.digest("SHA-256", arrayBuffer);
-    return Array.from(new Uint8Array(hashBuffer)).map(byte => byte.toString(16).padStart(2, "0")).join("");
-}
-
 /**
  * Inserts a new meme into the database.
  * 
